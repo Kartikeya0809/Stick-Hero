@@ -1,2 +1,4 @@
-package com.project.stickhero;public class GameplayController {
+package com.project.stickhero;
+
+public class GameplayController {
 }
