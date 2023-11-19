@@ -12,6 +12,11 @@ public class GameplayController {
     @FXML
     private Button pauseButton;
 
+
+    public Button getPauseButton() {
+        return pauseButton;
+    }
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
         // Not Required Right now
@@ -31,5 +36,24 @@ public class GameplayController {
         }
 
     }
+
+    @FXML
+    private void handleExitButton(){
+        // When pressed anywhere in blank space
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+            AnchorPane gameOver = fxmlLoader.load();
+            Scene nextScene = new Scene( gameOver );
+            Stage currentStage = ( Stage )  pauseButton.getScene().getWindow();
+            currentStage.setScene( nextScene );
+            currentStage.show();
+        } catch ( Exception e ){
+//            e.printStackTrace();
+            System.out.println("FXML file not found");
+        }
+
+    }
+
+
 
 }
