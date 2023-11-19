@@ -8,15 +8,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #fffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.stickhero.HomeScreen">
+<AnchorPane prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="project.stickhero.MainController">
    <children>
-      <Label contentDisplay="CENTER" layoutX="-2.0" layoutY="-1.0" prefHeight="181.0" prefWidth="281.0" style="-fx-wrap-text: 1;" text="  STICK  HERO" textAlignment="CENTER" wrapText="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="-1.0" prefHeight="187.0" prefWidth="281.0" style="-fx-wrap-text: true;" text="  STICK  HERO" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" wrapText="true">
          <font>
             <Font name="Rockwell" size="64.0" />
          </font>
       </Label>
-      <Button layoutX="90.0" layoutY="205.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="97.0" style="-fx-background-radius: 100; -fx-background-color: #e34557;" text="PLAY" textFill="WHITE">
+      <Button layoutX="90.0" layoutY="205.0" mnemonicParsing="false" onAction="#handlePlayButton" prefHeight="95.0" prefWidth="97.0" style="-fx-background-radius: 100; -fx-background-color: #e34557;" text="PLAY" textFill="WHITE">
          <font>
             <Font name="Rockwell" size="24.0" />
          </font>
@@ -24,17 +23,17 @@
       <VBox layoutX="100.0" layoutY="406.0" prefHeight="129.0" prefWidth="82.0" style="-fx-background-color: #000000;" />
       <ImageView fitHeight="95.0" fitWidth="59.0" layoutX="111.0" layoutY="361.0" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/stick_figure.png" />
+            <Image url="@../../Images/stick_figure.png" />
          </image>
       </ImageView>
-      <Button layoutX="213.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-background-color: #000000; -fx-opacity: 0.1;" text="PLAY" textFill="WHITE">
+      <Button fx:id="playButton" layoutX="213.0" layoutY="336.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-background-color: #000000; -fx-opacity: 0.1;" text="PLAY" textFill="WHITE">
          <font>
             <Font name="Rockwell" size="24.0" />
          </font>
       </Button>
       <ImageView fitHeight="37.0" fitWidth="35.0" layoutX="222.0" layoutY="342.0">
          <image>
-            <Image url="@../../../Images/cherry.png" />
+            <Image url="@../../Images/cherry.png" />
          </image>
       </ImageView>
       <Button layoutX="14.0" layoutY="423.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-background-color: #000000; -fx-opacity: 0.1;" textFill="WHITE">
@@ -54,18 +53,18 @@
       </Button>
       <ImageView fitHeight="44.0" fitWidth="59.0" layoutX="7.0" layoutY="303.0">
          <image>
-            <Image url="@../../../Images/Question_mark.png" />
+            <Image url="@../../Images/Question_mark.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="95.0" fitWidth="59.0" layoutX="7.0" layoutY="364.0" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/stick_figure.png" />
+            <Image url="@../../Images/stick_figure.png" />
          </image>
       </ImageView>
       <VBox layoutX="47.0" layoutY="374.0" prefHeight="31.0" prefWidth="2.0" rotate="15.0" style="-fx-background-color: #000000;" />
       <ImageView fitHeight="37.0" fitWidth="35.0" layoutX="21.0" layoutY="429.0">
          <image>
-            <Image url="@../../../Images/Volume.png" />
+            <Image url="@../../Images/Volume.png" />
          </image>
       </ImageView>
    </children>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="505.0"
+            prefWidth="281.0"
+            style="-fx-background-color: #ffffff;"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="project.stickhero.GameEndController">
+   <children>
+      <HBox layoutX="-3.0" opacity="0.63" prefHeight="506.0" prefWidth="284.0" style="-fx-background-color: #000000;"/>
+      <Label layoutX="16.0" layoutY="87.0" prefHeight="140.0" prefWidth="249.0"
+             style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #ffffff;" textFill="WHITE"/>
+      <HBox layoutX="260.0" layoutY="356.0" opacity="0.26" prefHeight="4.0" prefWidth="14.0"
+            style="-fx-background-color: #DD0E0F;"/>
+      <HBox layoutX="254.0" layoutY="358.0" opacity="0.26" prefHeight="147.0" prefWidth="27.0"
+            style="-fx-background-color: #000000;"/>
+      <HBox layoutY="355.0" opacity="0.26" prefHeight="150.0" prefWidth="72.0" style="-fx-background-color: #000000;"/>
+      <Button layoutX="201.0" layoutY="331.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="50.0"
+              style="-fx-background-radius: 5; -fx-background-color: #ffffff; -fx-opacity: 0.4;" textFill="WHITE">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <Button layoutX="145.0" layoutY="330.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="50.0"
+              style="-fx-background-radius: 5; -fx-background-color: #ffffff; -fx-opacity: 0.4;" textFill="WHITE">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <Button layoutX="89.0" layoutY="329.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="50.0"
+              style="-fx-background-radius: 5; -fx-background-color: #ffffff; -fx-opacity: 0.4;" textFill="WHITE">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <Button layoutX="31.0" layoutY="330.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="50.0"
+              style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;"/>
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="14.0" prefHeight="42.0" prefWidth="283.0" text="GAME OVER!"
+             textFill="WHITE">
+         <font>
+            <Font name="Microsoft Sans Serif" size="36.0"/>
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="95.0" layoutY="96.0" prefHeight="6.0" prefWidth="96.0" text="SCORE"
+             textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft Sans Serif" size="14.0"/>
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="99.0" layoutY="115.0" prefHeight="15.0" prefWidth="88.0" text="36"
+             textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft Sans Serif" size="24.0"/>
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="95.0" layoutY="159.0" prefHeight="6.0" prefWidth="96.0" text="BEST"
+             textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft Sans Serif" size="14.0"/>
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="96.0" layoutY="185.0" prefHeight="6.0" prefWidth="96.0" text="234"
+             textAlignment="CENTER">
+         <font>
+            <Font name="Microsoft Sans Serif" size="24.0"/>
+         </font>
+      </Label>
+      <ImageView fitHeight="34.0" fitWidth="41.0" layoutX="93.0" layoutY="334.0">
+         <image>
+            <Image url="@../../Images/stats.png"/>
+         </image>
+      </ImageView>
+      <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="149.0" layoutY="329.0">
+         <image>
+            <Image url="@../../Images/redo.png"/>
+         </image>
+      </ImageView>
+      <ImageView fitHeight="34.0" fitWidth="35.0" layoutX="209.0" layoutY="333.0">
+         <image>
+            <Image url="@../../Images/star.png"/>
+         </image>
+      </ImageView>
+      <Button layoutX="85.0" layoutY="264.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0"
+              style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #e35752;" text="SHARE"
+              textFill="WHITE">
+         <font>
+            <Font size="18.0"/>
+         </font>
+      </Button>
+      <ImageView fitHeight="34.0" fitWidth="41.0" layoutX="36.0" layoutY="334.0">
+         <image>
+            <Image url="@../../Images/home.png"/>
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

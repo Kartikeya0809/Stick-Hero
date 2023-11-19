@@ -3,6 +3,6 @@ module com.project.stickhero {
     requires javafx.fxml;
 
 
-    opens com.project.stickhero to javafx.fxml;
-    exports com.project.stickhero;
+    opens project.stickhero to javafx.fxml;
+    exports project.stickhero;
 }

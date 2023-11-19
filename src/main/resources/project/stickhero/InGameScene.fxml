@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,13 +9,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" type="AnchorPane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.project.stickhero.GameplayController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.GameplayController">
 
     <children>
+      <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="30.0" layoutY="29.0">
+         <image>
+            <Image url="@../../Images/pauseButton.png" />
+         </image>
+      </ImageView>
         <VBox layoutY="305.0" prefHeight="200.0" prefWidth="65.0" style="-fx-background-color: #000000;" />
         <VBox layoutX="193.0" layoutY="305.0" prefHeight="200.0" prefWidth="48.0" style="-fx-background-color: #000000;" />
 
-        <Label alignment="CENTER" layoutX="108.0" layoutY="66.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
+        <Label alignment="CENTER" layoutX="108.0" layoutY="86.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
@@ -22,28 +28,24 @@
         <HBox layoutX="63.0" layoutY="300.0" prefHeight="4.0" prefWidth="155.0" style="-fx-background-color: #000000;" />
         <HBox layoutX="185.0" layoutY="152.0" prefHeight="10.0" prefWidth="25.0" style="-fx-pref-width: 12; -fx-pref-height: 2; -fx-background-color: #FF0000; -fx-translate-x: 26; -fx-translate-y: 153;" />
 
-        <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="181.0" layoutY="23.0" prefHeight="27.0" prefWidth="44.0" text="99" textAlignment="CENTER" />
+        <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="177.0" layoutY="23.0" prefHeight="27.0" prefWidth="48.0" text="99" textAlignment="CENTER" />
       <ImageView fitHeight="22.0" fitWidth="27.0" layoutX="231.0" layoutY="30.0" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/cherry.png" />
+            <Image url="@../../Images/cherry.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="53.0" fitWidth="48.0" layoutX="14.0" layoutY="267.0" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/stick_figure.png" />
+            <Image url="@../../Images/stick_figure.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="22.0" fitWidth="18.0" layoutX="92.0" layoutY="304.0" preserveRatio="true">
          <image>
-            <Image url="@../../../Images/cherry.png" />
+            <Image url="@../../Images/cherry.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="23.0" fitWidth="29.0" layoutX="20.0" layoutY="30.0">
-         <image>
-            <Image url="@../../../Images/pauseButton.png" />
-         </image>
-      </ImageView>
+      <Button fx:id="pauseButton" layoutX="25.0" layoutY="24.0" mnemonicParsing="false" onAction="#handlePauseButton" prefHeight="36.0" prefWidth="38.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-opacity: 0.05;" />
 
 
     </children>
-</fx:root>
+</AnchorPane>
