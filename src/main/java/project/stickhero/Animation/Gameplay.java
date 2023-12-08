@@ -148,7 +148,7 @@
 
         private void moveSprite()
         {
-            if (currentStick.isFallen() ){
+            if ( currentStick.isFallen() ){
                 System.out.println(currentStick.getLength());
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->move()));
                 loop.setCycleCount((int)(currentStick.getLength() + sprite.getFitWidth()));
@@ -245,7 +245,7 @@
                     TranslateTransition third = pillarShifts.get(1);
 
                     // For Stick
-                    currentStick.getTransition().setByX(-second.getNode().getLayoutX());
+                    currentStick.startTransition().setByX(-second.getNode().getLayoutX());
 
                     first.setByX( -first.getNode().getLayoutX() );
                     second.setByX( -second.getNode().getLayoutX() );
@@ -272,7 +272,7 @@
                         pillars.remove(0);
                         second.play();
                         getSpriteNode().play();
-                        currentStick.getTransition().play();
+                        currentStick.startTransition().play();
                         System.out.println("second played");
 
                     });

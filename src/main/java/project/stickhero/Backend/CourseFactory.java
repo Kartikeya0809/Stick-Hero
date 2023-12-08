@@ -25,7 +25,7 @@ public class CourseFactory {
         else if ( type.equalsIgnoreCase("PILLAR") ){
             return new Pillar( root );
 
-        }else if ( type.equalsIgnoreCase("STICKS") ){
+        }else if ( type.equalsIgnoreCase("STICK") ){
             return new Stick( root );
 
         }else if ( type.equalsIgnoreCase("CHERRY") ){
