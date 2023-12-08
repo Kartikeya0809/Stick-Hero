@@ -100,7 +100,7 @@
         @FXML
         private void handleGrowth()
         {
-            if( !currentStick.isStickExtended() ){
+            if( !currentStick.isExtended() ){
                 loop.setCycleCount(Animation.INDEFINITE);
                 loop.play();}
         }
@@ -108,8 +108,8 @@
         @FXML
         private void stopGrowth()
         {
-            if( !currentStick.isStickExtended() ){
-                currentStick.setStickExtended(true);
+            if( !currentStick.isExtended() ){
+                currentStick.setExtended(true);
                 loop.stop();
                 animateBridge();
             }
@@ -119,7 +119,7 @@
 
         private void animateBridge()
         {
-            if ( currentStick.isStickExtended() && !currentStick.isFallen() ){
+            if ( currentStick.isExtended() && !currentStick.isFallen() ){
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/250),e-> turn()));
                 loop.setCycleCount(90);
                 loop.play();
