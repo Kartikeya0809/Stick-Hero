@@ -242,7 +242,10 @@
 
                     first.setByX( -first.getNode().getLayoutX() );
                     second.setByX( -second.getNode().getLayoutX() );
-                    double shift = getRandom().nextDouble(275-pillars.get(1).getWidth());
+                    double shift = getRandom().nextDouble(275-pillars.get(0).getWidth());
+                    if ( shift < pillars.get(1).getWidth()){
+                        shift = pillars.get(1).getWidth() + 1;
+                    }
                     third.setByX(-shift);
 
                     getSpriteNode().setByX(-second.getNode().getLayoutX());
@@ -253,14 +256,15 @@
                         screen.getChildren().remove(first.getNode());
                         pillars.remove(0);
                         second.play();
+                        getSpriteNode().play();
+                        getPreviousStick().play();
                         System.out.println("second played");
 
                     });
                     second.setOnFinished( e -> {
                         third.play();
                         System.out.println("third played");
-                        getSpriteNode().play();
-                        getPreviousStick().play();
+
 
                     });
                     first.play();
