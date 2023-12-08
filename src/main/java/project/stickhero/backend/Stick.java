@@ -1,5 +1,5 @@
 
-package project.stickhero;
+package project.stickhero.backend;
 import java.util.*;
 
 /**

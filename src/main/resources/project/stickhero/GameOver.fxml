@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.GameEndController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.Animation.GameEndController">
    <children>
       <HBox layoutX="-3.0" opacity="0.63" prefHeight="506.0" prefWidth="284.0" style="-fx-background-color: #000000;" />
       <Label layoutX="16.0" layoutY="87.0" prefHeight="140.0" prefWidth="249.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #ffffff;" textFill="WHITE" />

@@ -1,13 +1,14 @@
-    package project.stickhero;
+    package project.stickhero.Animation;
 
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
+    import javafx.scene.Group;
     import javafx.scene.Scene;
     import javafx.scene.control.Button;
     import javafx.scene.image.ImageView;
     import javafx.scene.layout.AnchorPane;
+    import javafx.scene.layout.HBox;
     import javafx.scene.transform.Rotate;
-    import javafx.scene.transform.Translate;
     import javafx.stage.Stage;
     import javafx.scene.shape.Rectangle;
     import javafx.animation.KeyFrame;
@@ -26,8 +27,9 @@
         @FXML private Line stick;
         @FXML private ImageView sprite;
         @FXML private AnchorPane screen;
-        @FXML private Rectangle pill1;
-        @FXML private Rectangle pill2;
+        @FXML private Rectangle pillar1;
+        @FXML private Rectangle pillar2;
+        @FXML private Rectangle midPoint;
         private LinkedList<Rectangle> pillars = new LinkedList<>();
 
         private int stickLength =0;
@@ -73,8 +75,10 @@
         @FXML // This method is called by the FXMLLoader when initialization is complete
         public void initialize() {
             stick.setVisible(false);
-            pillars.addFirst(pill1);  pillars.addFirst(pill2);
-            pillarShifts.add( startTransition( pill1 )); pillarShifts.add( startTransition( pill2 ));
+            pillars.addFirst(pillar1);
+            pillars.addFirst(pillar2);
+
+            pillarShifts.add( startTransition( pillar1 )); pillarShifts.add( startTransition( pillar2 ));
 
             game = new AnimationTimer() {
                 @Override
@@ -141,13 +145,14 @@
                 int x = (int) sprite.getLayoutX();
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->move()));
                 loop.setCycleCount(stickLength + (int)sprite.getFitWidth());
-                loop.setOnFinished(e->reachedNextPillar = true);
+                loop.setOnFinished(e->{
+                    reachedNextPillar = true;
+                    if (sprite.getLayoutX() < 0 ){
+                        sprite.setLayoutX(1);
+                    }
+                });
                 loop.play();
     //            TODO : must change acc to stick length
-    //            if ( loop.getStatus() == Animation.Status.STOPPED ){
-    //                System.out.println("stopped");
-    //                reachedNextPillar = true;
-    //            }
             }
         }
 
@@ -165,14 +170,13 @@
         @FXML
         private void handlePauseButton(){
             try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("paused.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/paused.fxml"));
                 AnchorPane paused = fxmlLoader.load();
                 Scene nextScene = new Scene( paused );
                 Stage currentStage = ( Stage )  pauseButton.getScene().getWindow();
                 currentStage.setScene( nextScene );
                 currentStage.show();
             } catch ( Exception e ){
-    //            e.printStackTrace();
                 System.out.println("FXML file not found");
             }
 
@@ -182,14 +186,13 @@
         private void handleExitButton(){
             // When pressed anywhere in blank space
             try{
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GameOver.fxml"));
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/GameOver.fxml"));
                 AnchorPane gameOver = fxmlLoader.load();
                 Scene nextScene = new Scene( gameOver );
                 Stage currentStage = ( Stage )  pauseButton.getScene().getWindow();
                 currentStage.setScene( nextScene );
                 currentStage.show();
             } catch ( Exception e ){
-    //            e.printStackTrace();
                 System.out.println("FXML file not found");
             }
 
@@ -211,8 +214,7 @@
             return pillarTransition;
         }
         private TranslateTransition createTransition(){
-            TranslateTransition shift = new TranslateTransition(Duration.millis(1200));
-            return shift;
+            return new TranslateTransition(Duration.millis(1200));
 
         }
 
@@ -269,35 +271,8 @@
                     });
                     first.play();
 
-//                    PauseTransition delay = new PauseTransition( Duration.millis(100));
-//                    delay.play();
-//                    delay.setOnFinished(e-> {
-//                        first.play();
-//                    });
-
                 }
-
-
         }
-
-
-        /*
-
-
-            t3.setByX(-rand.nextDouble(285-p2.getWidth()));
-            sp.setNode(sprite);
-            sp.setDuration(Duration.millis(1000.0));
-            sp.setByX(-p2.getLayoutX());
-            pillars.remove(p1);
-            t1.play();
-            t2.play();
-            s.play();
-            t3.play();
-            sp.play();
-            t3.setOnFinished(e->setFinished(0));*/
-
-
-
 
     }
 

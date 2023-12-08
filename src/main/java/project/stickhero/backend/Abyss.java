@@ -1,27 +1,30 @@
-
-package project.stickhero;
-import java.util.*;
+package project.stickhero.backend;
 
 /**
  * 
  */
-public class CourseFactory {
+public class Abyss extends PathObstacles implements Cloneable {
 
     /**
      * Default constructor
      */
-    public CourseFactory() {
+    public Abyss() {
     }
 
     /**
      * 
      */
-    private static CourseFactory Factory;
+    private Pillar leftPillar;
+
+    /**
+     * 
+     */
+    private Pillar rightPillar;
 
     /**
      * @return
      */
-    public Pillar createPillar() {
+    public Pillar getLeftPillar() {
         // TODO implement here
         return null;
     }
@@ -29,7 +32,7 @@ public class CourseFactory {
     /**
      * @return
      */
-    public Abyss createAbyss() {
+    public Pillar getRightPillar() {
         // TODO implement here
         return null;
     }
@@ -37,15 +40,7 @@ public class CourseFactory {
     /**
      * @return
      */
-    public Cherry addCherry() {
-        // TODO implement here
-        return null;
-    }
-
-    /**
-     * @return
-     */
-    public CourseFactory getInstance() {
+    public Abyss clone() {
         // TODO implement here
         return null;
     }

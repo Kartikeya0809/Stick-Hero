@@ -1,59 +1,57 @@
 
-package project.stickhero;
+package project.stickhero.backend;
 import java.util.*;
 
 /**
  * 
  */
-public class ProgressInfo {
+public class Cherry {
 
     /**
      * Default constructor
      */
-    public ProgressInfo() {
+    public Cherry() {
     }
 
     /**
      * 
      */
-    private Score currentScore;
+    private double position;
 
     /**
      * 
      */
-    private TotalCherries totalCherries;
+    private boolean collected;
 
     /**
      * 
      */
-    private int highScore;
-
-    public void showProgress() {
+    public void Operation1() {
         // TODO implement here
     }
 
     /**
      * @return
      */
-    public int getCurrentScore() {
+    public boolean getStatus() {
         // TODO implement here
-        return 0;
+        return false;
     }
 
     /**
      * @return
      */
-    public int getHighScore() {
+    public double getPosition() {
         // TODO implement here
-        return 0;
+        return 0.0d;
     }
 
     /**
+     * @param n 
      * @return
      */
-    public int getTotalCherries() {
+    public void setPosition(double n) {
         // TODO implement here
-        return 0;
     }
 
 }

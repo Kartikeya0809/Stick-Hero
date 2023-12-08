@@ -1,4 +1,4 @@
-package project.stickhero;
+package project.stickhero.Animation;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +21,7 @@ public class PausedController {
     @FXML
     private void handleContinueButton(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InGameScene.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/InGameScene.fxml"));
             AnchorPane paused = fxmlLoader.load();
             Scene nextScene = new Scene( paused );
             Stage currentStage = ( Stage )  continueButton.getScene().getWindow();
@@ -36,7 +36,7 @@ public class PausedController {
     @FXML
     private void handleleaveButton(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("HomeScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/HomeScreen.fxml"));
             AnchorPane paused = fxmlLoader.load();
             Scene nextScene = new Scene( paused );
             Stage currentStage = ( Stage )  leaveButton.getScene().getWindow();

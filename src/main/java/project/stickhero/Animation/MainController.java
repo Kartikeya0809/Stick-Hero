@@ -1,4 +1,4 @@
-package project.stickhero;
+package project.stickhero.Animation;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ public class MainController {
     @FXML
     private void handlePlayButton(){
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("InGameScene.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/InGameScene.fxml"));
             AnchorPane gameplay = fxmlLoader.load();
 
 

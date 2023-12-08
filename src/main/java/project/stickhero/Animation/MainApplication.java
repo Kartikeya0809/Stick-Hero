@@ -1,4 +1,4 @@
-package project.stickhero;
+package project.stickhero.Animation;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,9 +9,9 @@ import java.io.IOException;
 
 public class MainApplication extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
         try{
-            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("HomeScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/project/stickhero/HomeScreen.fxml"));
             AnchorPane root = ( AnchorPane ) fxmlLoader.load();
             Scene scene = new Scene( root );
             stage.setScene( scene );
