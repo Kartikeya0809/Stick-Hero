@@ -217,6 +217,7 @@ public class GameplayController {
                 moved=1;
             }
         }
+        sprite.setLayoutX(sprite.getLayoutX()-1);
         //pillars.removeAll(out);
         screen.getChildren().removeAll(out);
         out.clear();
