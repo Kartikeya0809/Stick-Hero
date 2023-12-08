@@ -41,12 +41,14 @@ public class GameplayController {
     int moved=0;
     int count=-1;
     int point =0 ;
+    int len=0;
 
     AnimationTimer game;
     int time=0;
+    int t=0;
 
-    Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60),e->grow()));
-    
+    Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/150),e->grow()));
+
     public Button getPauseButton() {
         return pauseButton;
     }
@@ -70,29 +72,33 @@ public class GameplayController {
     @FXML
     private void handleGrowth()
     {
+        if(t==0){
         //Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60),e->grow()));
         loop.setCycleCount(Animation.INDEFINITE);
-        loop.play();
+        loop.play();}
     }
 
     @FXML
     private void stopGrowth()
     {
+        if(t==0){
         loop.stop();
         rot();
         moved=0;
         count=0;
         point++;
         System.out.println(point);
-        //moveSprite();
-
+        moveSprite();
+        t++;}
+        count=0;
+        moved=0;
     }
-    
+
 
     @FXML
     private void rot()
     {
-        Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->turn()));
+        Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/250),e->turn()));
         loop.setCycleCount(90);
         loop.play();
     }
@@ -114,34 +120,35 @@ public class GameplayController {
     @FXML
     private void moveSprite()
     {
-        /*Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60),e->move()));
-        loop.setCycleCount((int)st.getEndX());
-        loop.play();*/
-        AnimationTimer at = new AnimationTimer() {
+        int x = (int) sprite.getLayoutX();
+        Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->move()));
+        loop.setCycleCount(len+17);
+        loop.play();
+        /*AnimationTimer at = new AnimationTimer() {
             @Override
             public void handle(long l) {
-                sprite.setLayoutX(sprite.getLayoutX()+1);
+                if(sprite.getLayoutX()!=st.getLayoutX()+len){
+                sprite.setLayoutX(sprite.getLayoutX()+1);}
             }
         };
-        at.start();
+        at.start();*/
 
 
-        /*TranslateTransition tt = new TranslateTransition(new Duration(Animation.INDEFINITE),sprite);
-        tt.setToX(st.getEndX());
-        if(sprite.getX()==st.getEndX())
-        {
-            tt.stop();
-        }*/
+
+        /*TranslateTransition tt = new TranslateTransition();
+        tt.setNode(sprite);
+        tt.setToX(st.getLayoutX());
+        tt.play();*/
+
 
     }
 
     @FXML
     private void move()
     {
-        Translate tr = new Translate();
         sprite.setLayoutX(sprite.getLayoutX()+1);
-        //sprite.getTransforms().add(tr);
     }
+
 
 
     @FXML
@@ -149,6 +156,7 @@ public class GameplayController {
     {
         st.setVisible(true);
         st.setEndY(st.getEndY()-1);
+        len+=1;
     }
     @FXML
     private void handlePauseButton(){
@@ -218,7 +226,7 @@ public class GameplayController {
     @FXML
     private void update()
     {
-        if(count==0)
+        /*if(count==0)
         {
             createPillars();
             count++;
@@ -227,7 +235,7 @@ public class GameplayController {
         if(count>0 && moved!=1)
         {
             movePillars();
-        }
+        }*/
 
     }
 
