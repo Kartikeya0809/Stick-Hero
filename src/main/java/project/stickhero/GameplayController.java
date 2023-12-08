@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import javafx.animation.*;
 import javafx.scene.shape.Line;
 import javafx.event.ActionEvent.*;
+import java.util.ArrayList;
 
 public class GameplayController {
     @FXML
@@ -28,11 +30,23 @@ public class GameplayController {
     @FXML
     private ImageView sprite;
     int fallen =0;
+    ArrayList<Rectangle> pillars = new ArrayList<Rectangle>();
+
+    @FXML
+    private AnchorPane screen;
+    @FXML
+    private Rectangle pill1;
+    @FXML
+    private Rectangle pill2;
+    int moved=0;
+    int count=-1;
+    int point =0 ;
+
+    AnimationTimer game;
+    int time=0;
 
     Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/60),e->grow()));
-
-
-
+    
     public Button getPauseButton() {
         return pauseButton;
     }
@@ -40,6 +54,16 @@ public class GameplayController {
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
         st.setVisible(false);
+        pillars.add(pill1);
+        pillars.add(pill2);
+        game = new AnimationTimer() {
+            @Override
+            public void handle(long l) {
+                //createPillars();
+                update();
+            }
+        };
+        game.start();
         // Not Required Right now
     }
 
@@ -56,22 +80,14 @@ public class GameplayController {
     {
         loop.stop();
         rot();
-        moveSprite();
-
+        moved=0;
+        count=0;
+        point++;
+        System.out.println(point);
+        //moveSprite();
 
     }
-
-    @FXML
-    private void fall()
-    {
-
-        RotateTransition rt = new RotateTransition();
-        rt.setNode(stick);
-        rt.setDuration(Duration.millis(2000));
-        rt.setByAngle(90);
-        rt.setAutoReverse(false);
-        rt.play();
-    }
+    
 
     @FXML
     private void rot()
@@ -79,7 +95,6 @@ public class GameplayController {
         Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->turn()));
         loop.setCycleCount(90);
         loop.play();
-
     }
     @FXML
     private void turn()
@@ -94,15 +109,6 @@ public class GameplayController {
         st.getTransforms().add(r);
         //fallen+=1;
         //movePivot();
-    }
-    @FXML
-    private void movePivot()
-    {
-        Translate tr  = new Translate();
-        tr.setX(57);
-        tr.setY(124);
-        stick.getTransforms().add(tr);
-        //stick.setTranslateX(20); stick.setTranslateY(20);
     }
 
     @FXML
@@ -136,7 +142,7 @@ public class GameplayController {
         sprite.setLayoutX(sprite.getLayoutX()+1);
         //sprite.getTransforms().add(tr);
     }
-    
+
 
     @FXML
     private void grow()
@@ -176,6 +182,56 @@ public class GameplayController {
         }
 
     }
+
+    @FXML
+    private void createPillars()
+    {
+        Rectangle vb = new Rectangle(285,305,40,200);
+        pillars.add(vb);
+        screen.getChildren().add(vb);
+    }
+
+    @FXML
+    private void movePillars()
+    {
+        ArrayList<Rectangle> out = new ArrayList<Rectangle>();
+        for(int i=point-1;i<pillars.size();i++)
+        {
+            Rectangle pillar = pillars.get(i);
+            pillar.setLayoutX(pillar.getLayoutX()-1);
+
+            if(pillar.getLayoutX()==0)
+            {
+                out.add(pillar);
+            }
+            if(i==point && pillar.getLayoutX()+pillar.getWidth()==65)
+            {
+                moved=1;
+            }
+        }
+        //pillars.removeAll(out);
+        screen.getChildren().removeAll(out);
+        out.clear();
+
+    }
+
+    @FXML
+    private void update()
+    {
+        if(count==0)
+        {
+            createPillars();
+            count++;
+            //movePillars();
+        }
+        if(count>0 && moved!=1)
+        {
+            movePillars();
+        }
+
+    }
+
+
 
 
 
