@@ -1,5 +1,7 @@
 
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
+import project.stickhero.Backend.Sprite;
+
 import java.util.*;
 
 /**
@@ -26,7 +28,7 @@ public class Resources {
     /**
      * 
      */
-    private ArrayList<Character> charactersPurchased;
+    private ArrayList<Sprite> charactersPurchased;
 
 
     private static Resources resources;
@@ -86,7 +88,7 @@ public class Resources {
     /**
      * @return
      */
-    public ArrayList<Character> getCharactersPurchased() {
+    public ArrayList<Sprite> getCharactersPurchased() {
         // TODO implement here
         return null;
     }

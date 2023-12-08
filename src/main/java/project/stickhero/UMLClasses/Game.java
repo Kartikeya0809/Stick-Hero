@@ -1,5 +1,8 @@
 
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
+
+import project.stickhero.Backend.Sprite;
+import project.stickhero.Backend.CharacterStore;
 
 /**
  * 
@@ -50,7 +53,7 @@ public class Game {
     /**
      * @return
      */
-    public Character chooseCharacter() {
+    public Sprite chooseCharacter() {
         // TODO implement here
         return null;
     }

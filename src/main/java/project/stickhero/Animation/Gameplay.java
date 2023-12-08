@@ -1,13 +1,12 @@
     package project.stickhero.Animation;
+    import project.stickhero.Backend.*;
 
     import javafx.fxml.FXML;
     import javafx.fxml.FXMLLoader;
-    import javafx.scene.Group;
     import javafx.scene.Scene;
     import javafx.scene.control.Button;
     import javafx.scene.image.ImageView;
     import javafx.scene.layout.AnchorPane;
-    import javafx.scene.layout.HBox;
     import javafx.scene.transform.Rotate;
     import javafx.stage.Stage;
     import javafx.scene.shape.Rectangle;
@@ -17,11 +16,10 @@
     import javafx.animation.*;
     import javafx.scene.shape.Line;
 
-    import java.util.ArrayList;
-    import java.util.LinkedList;
-    import java.util.Random;
+    import java.util.*;
 
-    public class GameplayController {
+    public class Gameplay {
+
 
         @FXML private Button pauseButton;
         @FXML private Line stick;
@@ -30,31 +28,28 @@
         @FXML private Rectangle pillar1;
         @FXML private Rectangle pillar2;
         @FXML private Rectangle midPoint;
+
+        private CourseFactory Factory;
+        private Stick currentStick;
+
+        public Gameplay() {
+            // Can be instantiated more than once
+            this.Factory = CourseFactory.getInstanceOf();
+            this.currentStick = null;
+        }
+
         private LinkedList<Rectangle> pillars = new LinkedList<>();
 
-        private int stickLength =0;
         private Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/150),e->grow()));
         private AnimationTimer game;
         private ArrayList<TranslateTransition> pillarShifts = new ArrayList<>();
 
-        //Flags
-        private boolean stickExtended = false;
-        private boolean stickFallen = false;
         private boolean reachedNextPillar = false;
-        private double abyssLength;
         private TranslateTransition previousStick, spriteNode ;
         private Random randomGen;
 
         public Button getPauseButton() {
             return pauseButton;
-        }
-
-        public TranslateTransition getPreviousStick() {
-            if ( previousStick == null ){
-                previousStick = new TranslateTransition();
-                previousStick.setDuration(Duration.millis(1000.0));
-            }
-            return previousStick;
         }
         public  Random getRandom(){
             if ( randomGen == null ){
@@ -63,6 +58,9 @@
             return randomGen;
 
         }
+
+
+
         public TranslateTransition getSpriteNode(){
             if ( spriteNode == null ){
                 spriteNode = new TranslateTransition();
@@ -75,10 +73,20 @@
         @FXML // This method is called by the FXMLLoader when initialization is complete
         public void initialize() {
             stick.setVisible(false);
+            currentStick = (Stick) Factory.getObject(screen, "Stick");
+            currentStick.setLine(stick);
+
             pillars.addFirst(pillar1);
             pillars.addFirst(pillar2);
 
-            pillarShifts.add( startTransition( pillar1 )); pillarShifts.add( startTransition( pillar2 ));
+            Pillar firstPillar = (Pillar) Factory.getObject(screen,"Pillar");
+            Pillar secondPillar = (Pillar) Factory.getObject(screen,"Pillar");
+            firstPillar.assignRectangle(pillar1);
+            secondPillar.assignRectangle(pillar2);
+            secondPillar.assignMidBox(midPoint);
+
+            pillarShifts.add( firstPillar.startTransition() );
+            pillarShifts.add( secondPillar.startTransition() );
 
             game = new AnimationTimer() {
                 @Override
@@ -92,7 +100,7 @@
         @FXML
         private void handleGrowth()
         {
-            if( !stickExtended ){
+            if( !currentStick.isStickExtended() ){
                 loop.setCycleCount(Animation.INDEFINITE);
                 loop.play();}
         }
@@ -100,8 +108,8 @@
         @FXML
         private void stopGrowth()
         {
-            if( !stickExtended ){
-                stickExtended = true;
+            if( !currentStick.isStickExtended() ){
+                currentStick.setStickExtended(true);
                 loop.stop();
                 animateBridge();
             }
@@ -111,13 +119,13 @@
 
         private void animateBridge()
         {
-            if ( stickExtended && !stickFallen ){
+            if ( currentStick.isStickExtended() && !currentStick.isFallen() ){
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/250),e-> turn()));
                 loop.setCycleCount(90);
                 loop.play();
                 PauseTransition delay = new PauseTransition( Duration.millis(1000));
                 delay.setOnFinished(e-> {
-                    stickFallen = true;
+                    currentStick.setFallen(true);
                     moveSprite();
 
                 });
@@ -132,19 +140,18 @@
         private void turn()
         {
             Rotate r = new Rotate();
-            r.pivotXProperty().bind(stick.startXProperty());
-            r.pivotYProperty().bind(stick.startYProperty());
+            r.pivotXProperty().bind(currentStick.getLine().startXProperty());
+            r.pivotYProperty().bind(currentStick.getLine().startYProperty());
             r.setAngle(1);
-            stick.getTransforms().add(r);
+            currentStick.getLine().getTransforms().add(r);
         }
 
         private void moveSprite()
         {
-            if ( stickFallen ){
-                System.out.println(stickLength);
-                int x = (int) sprite.getLayoutX();
+            if (currentStick.isFallen() ){
+                System.out.println(currentStick.getLength());
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->move()));
-                loop.setCycleCount(stickLength + (int)sprite.getFitWidth());
+                loop.setCycleCount((int)(currentStick.getLength() + sprite.getFitWidth()));
                 loop.setOnFinished(e->{
                     reachedNextPillar = true;
                     if (sprite.getLayoutX() < 0 ){
@@ -163,9 +170,9 @@
 
         private void grow()
         {
-            stick.setVisible(true);
-            stick.setEndY(stick.getEndY()-1);
-            stickLength +=1;
+            currentStick.getLine().setVisible(true);
+            currentStick.getLine().setEndY(currentStick.getLine().getEndY()-1);
+            currentStick.incrementLength();
         }
         @FXML
         private void handlePauseButton(){
@@ -198,37 +205,36 @@
 
         }
 
-        private Rectangle createPillar( )
+        private Pillar createPillar( )
         {
-    //        double pillarStartAtX = pillars.getFirst().getLayoutX() + pillars.getFirst().getWidth() + abyssLength;
-            Rectangle pillar = new Rectangle(285,305,40,200);
-            pillars.addFirst(pillar);
-            screen.getChildren().add(pillar);
+            Pillar pillar = null;
+            PathObstacles object = Factory.getObject(screen,"pillar");
+            if ( object != null && object.getClass() == Pillar.class ){
+                pillar = (Pillar) object;
+                pillar.setRectangle(); pillar.setRedBox(screen.getWidth());
+                pillars.addFirst( pillar.getBase() );
+                screen.getChildren().add( pillar.getBase());
 
+
+            }
             return pillar;
         }
-        private TranslateTransition startTransition ( Rectangle pillar ){
-            TranslateTransition pillarTransition = createTransition();
-            pillarTransition.setNode(pillar);
-            pillarTransition.setOnFinished( event -> screen.getChildren().remove(pillar));
-            return pillarTransition;
-        }
-        private TranslateTransition createTransition(){
-            return new TranslateTransition(Duration.millis(1200));
 
-        }
+
 
 
         private void update()
 
         {
-                if ( reachedNextPillar && stickFallen ){
+                if ( reachedNextPillar && currentStick.isFallen()){
+                    Pillar newPillar = null;
                     System.out.println("reached next pillar");
-                    stickFallen = false;
+                    currentStick.setFallen(false);
                     reachedNextPillar = false;
 
                     if ( pillarShifts.size() < 3 ){
-                        pillarShifts.add(  startTransition( createPillar() ) );
+                        newPillar = createPillar();
+                        pillarShifts.add(  newPillar.startTransition() );
                     }
 
                     System.out.println(pillarShifts.size());
@@ -239,8 +245,7 @@
                     TranslateTransition third = pillarShifts.get(1);
 
                     // For Stick
-                    getPreviousStick().setNode(stick);
-                    getPreviousStick().setByX(-second.getNode().getLayoutX());
+                    currentStick.getTransition().setByX(-second.getNode().getLayoutX());
 
                     first.setByX( -first.getNode().getLayoutX() );
                     second.setByX( -second.getNode().getLayoutX() );
@@ -249,24 +254,31 @@
                         shift = pillars.get(1).getWidth() + 1;
                     }
                     third.setByX(-shift);
+                    newPillar.setRedBox(third.getNode().getLayoutX());
+                    newPillar.getRedBox().setVisible(true);
+                    screen.getChildren().add( newPillar.getRedBox());
+
+
 
                     getSpriteNode().setByX(-second.getNode().getLayoutX());
-                    third.setOnFinished(e->{reachedNextPillar = false;});
+                    third.setOnFinished(e->reachedNextPillar = false);
 
 
                     first.setOnFinished(event -> {
                         screen.getChildren().remove(first.getNode());
+//                        if ( pillars.get(0) == pillar2 ){
+//                            midPoint.setVisible(false);
+//                        }
                         pillars.remove(0);
                         second.play();
                         getSpriteNode().play();
-                        getPreviousStick().play();
+                        currentStick.getTransition().play();
                         System.out.println("second played");
 
                     });
                     second.setOnFinished( e -> {
                         third.play();
                         System.out.println("third played");
-
 
                     });
                     first.play();

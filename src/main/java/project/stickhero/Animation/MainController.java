@@ -9,8 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MainController {
     @FXML
@@ -26,15 +24,12 @@ public class MainController {
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/InGameScene.fxml"));
             AnchorPane gameplay = fxmlLoader.load();
-
-
-
             Scene nextScene = new Scene( gameplay );
             Stage currentStage = ( Stage )  playButton.getScene().getWindow();
             currentStage.setScene( nextScene );
             currentStage.show();
         } catch ( IOException e ){
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("FXML file not found");
         }
 

@@ -1,5 +1,8 @@
 
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
+
+import project.stickhero.Backend.Cherry;
+import project.stickhero.Backend.Pillar;
 
 /**
  * 

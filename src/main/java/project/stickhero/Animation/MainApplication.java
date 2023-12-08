@@ -17,6 +17,7 @@ public class MainApplication extends Application {
             stage.setScene( scene );
             stage.show();
         } catch ( IOException e ){
+            System.out.println(e.getMessage());
             System.out.println("FXML file not found");
         }
     }

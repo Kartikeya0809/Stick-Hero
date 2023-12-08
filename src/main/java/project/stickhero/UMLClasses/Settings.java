@@ -1,5 +1,5 @@
 
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
 
 /**
  * 

@@ -1,57 +1,58 @@
 
-package project.stickhero.backend;
-import java.util.*;
+package project.stickhero.UMLClasses;
 
 /**
  * 
  */
-public class Cherry {
+public class ProgressInfo {
 
     /**
      * Default constructor
      */
-    public Cherry() {
+    public ProgressInfo() {
     }
 
     /**
      * 
      */
-    private double position;
+    private Score currentScore;
 
     /**
      * 
      */
-    private boolean collected;
+    private TotalCherries totalCherries;
 
     /**
      * 
      */
-    public void Operation1() {
+    private int highScore;
+
+    public void showProgress() {
         // TODO implement here
     }
 
     /**
      * @return
      */
-    public boolean getStatus() {
+    public int getCurrentScore() {
         // TODO implement here
-        return false;
+        return 0;
     }
 
     /**
      * @return
      */
-    public double getPosition() {
+    public int getHighScore() {
         // TODO implement here
-        return 0.0d;
+        return 0;
     }
 
     /**
-     * @param n 
      * @return
      */
-    public void setPosition(double n) {
+    public int getTotalCherries() {
         // TODO implement here
+        return 0;
     }
 
 }

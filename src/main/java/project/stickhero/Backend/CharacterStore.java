@@ -1,5 +1,6 @@
 
-package project.stickhero.backend;
+package project.stickhero.Backend;
+
 import java.util.*;
 
 /**
@@ -16,7 +17,7 @@ public class CharacterStore {
     /**
      * 
      */
-    private ArrayList<Character> characters;
+    private ArrayList<Sprite> sprites;
 
     /**
      * 
@@ -48,7 +49,7 @@ public class CharacterStore {
      * @param name 
      * @return
      */
-    public Character purchaseCharacter(String name) {
+    public Sprite purchaseCharacter(String name) {
         // TODO implement here
         return null;
     }
@@ -64,7 +65,7 @@ public class CharacterStore {
     /**
      * @return
      */
-    public ArrayList<Character> getCharacters() {
+    public ArrayList<Sprite> getCharacters() {
         // TODO implement here
         return null;
     }

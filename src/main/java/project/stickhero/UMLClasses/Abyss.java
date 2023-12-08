@@ -1,9 +1,11 @@
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
+
+import project.stickhero.Backend.Pillar;
 
 /**
  * 
  */
-public class Abyss extends PathObstacles implements Cloneable {
+public class Abyss implements Cloneable {
 
     /**
      * Default constructor

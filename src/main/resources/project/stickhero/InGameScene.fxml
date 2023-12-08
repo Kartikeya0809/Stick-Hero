@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#handleGrowth" onMouseReleased="#stopGrowth" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.Animation.GameplayController">
+<AnchorPane fx:id="screen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#handleGrowth" onMouseReleased="#stopGrowth" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.Animation.Gameplay">
 
     <children>
       <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="30.0" layoutY="29.0">
@@ -44,7 +44,7 @@
       <Rectangle fx:id="pillar1" arcHeight="5.0" arcWidth="5.0" height="201.0" layoutY="305.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="65.0" />
       <Rectangle fx:id="pillar2" arcHeight="5.0" arcWidth="5.0" height="201.0" layoutX="193.0" layoutY="305.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
       <Line fx:id="stick" endX="-100.0" endY="17.0" layoutX="162.0" layoutY="285.0" onScrollStarted="#handleExitButton" startX="-100.0" startY="20.0" strokeWidth="2.0" />
-      <Rectangle fx:id="midPoint" fill="#dd2828" height="5.0" layoutX="208.0" layoutY="305.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="19.0" />
+      <Rectangle fx:id="midPoint" fill="#ff1111" height="5.0" layoutX="210.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
 
 
     </children>

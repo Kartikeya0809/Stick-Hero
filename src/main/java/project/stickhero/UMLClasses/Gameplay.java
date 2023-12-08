@@ -1,5 +1,7 @@
 
-package project.stickhero.backend;
+package project.stickhero.UMLClasses;
+
+import project.stickhero.Backend.Sprite;
 
 /**
  * 
@@ -15,7 +17,7 @@ public class Gameplay {
     /**
      * 
      */
-    private Character currentCharacter;
+    private Sprite currentSprite;
 
 
     private Score currentScore;
@@ -54,7 +56,7 @@ public class Gameplay {
     /**
      * @return
      */
-    public Character getCurrentCharacter() {
+    public Sprite getCurrentCharacter() {
         // TODO implement here
         return null;
     }
