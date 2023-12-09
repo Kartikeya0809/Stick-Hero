@@ -1,4 +1,5 @@
     package project.stickhero.Animation;
+    import javafx.geometry.Point2D;
     import project.stickhero.Backend.*;
 
     import javafx.fxml.FXML;
@@ -39,6 +40,7 @@
 
         private final CourseFactory Factory;
         private Stick currentStick;
+        private ArrayList<Stick> Sticks;
         private Sprite stickHero;
         private int cherriesInPath = 1;
         private Cherry currentCherry;
@@ -47,7 +49,9 @@
             // Can be instantiated more than once
             this.Factory = CourseFactory.getInstanceOf();
             this.currentStick = null;
+            this.currentCherry = null;
             this.delay = new PauseTransition( Duration.millis(400));
+            this.Sticks = new ArrayList<>();
         }
 
         private LinkedList<Rectangle> pillars = new LinkedList<>();
@@ -55,8 +59,6 @@
 
         private Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/150),e->grow()));
         private AnimationTimer game;
-        private ArrayList<TranslateTransition> pillarShifts = new ArrayList<>();
-
         private boolean reachedNextPillar = false;
         private Random randomGen;
 
@@ -80,6 +82,7 @@
             stick.setVisible(false);
             currentStick = (Stick) Factory.getObject(screen, "Stick");
             currentStick.setLine(stick);
+            Sticks.add(currentStick);
 
             scoreLabel.setText("0");
             cherryCounter.setText("0");
@@ -95,10 +98,8 @@
             Pillar secondPillar = (Pillar) Factory.getObject(screen,"Pillar");
             firstPillar.assignRectangle(pillar1);
             secondPillar.assignRectangle(pillar2);
-            secondPillar.assignMidBox(midPoint);
+//            secondPillar.assignMidBox(midPoint);
 
-            pillarShifts.add( firstPillar.startTransition(600) );
-            pillarShifts.add( secondPillar.startTransition(600) );
 
             game = new AnimationTimer() {
                 @Override
@@ -114,7 +115,8 @@
         {
             if( !currentStick.isExtended() ){
                 loop.setCycleCount(Animation.INDEFINITE);
-                loop.play();}
+                loop.play();
+            }
         }
 
         @FXML
@@ -138,6 +140,8 @@
                 delay.setOnFinished(e-> {
 
                     currentStick.isLengthEnough( pillars.getLast(), pillars.getFirst());
+                    System.out.println(currentStick.isShort());
+                    System.out.println(currentStick.getLength());
                     currentStick.setFallen(true);
                     moveSprite();
 
@@ -162,6 +166,7 @@
         private void moveSprite()
         {
             if(currentStick.isFallen()) {
+                System.out.println("in move sprite");
                 TranslateTransition movement = stickHero.getSpriteTransition(450);
 
                 if( !currentStick.isShort() )
@@ -235,7 +240,7 @@
             PathObstacles object = Factory.getObject(screen,"pillar");
             if ( object != null && object.getClass() == Pillar.class ){
                 pillar = (Pillar) object;
-                pillar.setRectangle(); pillar.setRedBox(screen.getWidth());
+                pillar.setRectangle(getRandom().nextDouble(Pillar.MAXIMUM_WIDTH));
                 pillars.addFirst( pillar.getBase() );
                 screen.getChildren().add( pillar.getBase());
 
@@ -251,10 +256,6 @@
         }
 
 
-        private void upsideDown()
-        {
-
-        }
 
         private void update()
 
@@ -268,84 +269,82 @@
                     //cherry will remain visible
                     //will need to invoke its transition
                 }
+
                 if ( reachedNextPillar && currentStick.isFallen()){
-                    Pillar newPillar = null;
+
                     System.out.println("reached next pillar");
                     currentStick.setFallen(false);
                     reachedNextPillar = false;
                     scoreLabel.setText(Integer.toString(stickHero.getScore()+1));
                     stickHero.setScore(stickHero.getScore()+1);
 
-                    if ( pillarShifts.size() < 3 ){
-                        newPillar = createPillar();
-                        pillarShifts.add(  newPillar.startTransition(600) );
+                    if ( pillars.size() < 3 ){
+                        createPillar();
                     }
-
-                    System.out.println(pillarShifts.size());
-
                     // Transition Objects for source Pillar, destination pillar and incoming pillar
-                    TranslateTransition first = pillarShifts.remove(0);
-                    TranslateTransition second = pillarShifts.get(0);
-                    TranslateTransition third = pillarShifts.get(1);
 
-                    // For Stick
-                    currentStick.startTransition(600).setByX(-second.getNode().getLayoutX());
+                    TranslateTransition paneTransition =  new TranslateTransition( Duration.millis(1000),screen);
+                    paneTransition.setByX(- 200);
+                    paneTransition.setOnFinished(e->{
+                        screen.getChildren().remove(pillars.getLast());
+                        pillars.removeLast();
+                        resetSticks();
 
-                    first.setByX( -2*first.getNode().getLayoutX() );
-                    second.setByX( -second.getNode().getLayoutX() );
-                    double shift = getRandom().nextDouble(275-pillars.get(0).getWidth());
-                    if ( shift < pillars.get(1).getWidth()){
-                        shift = pillars.get(1).getWidth() + 1;
-                    }
-                    third.setByX(-shift);
-                    newPillar.setRedBox(third.getNode().getLayoutX());
-                    newPillar.getRedBox().setVisible(true);
-                    screen.getChildren().add( newPillar.getRedBox());
-
-
-
-                    stickHero.getSpriteTransition(600).setByX(-second.getNode().getLayoutX());
-                    third.setOnFinished(e->{
-                        reachedNextPillar = false;
-                        relocate();
                     });
+                    paneTransition.play();
 
 
-                    first.setOnFinished(event -> {
-                        screen.getChildren().remove(first.getNode());
-//                        if ( pillars.get(0) == pillar2 ){
-//                            midPoint.setVisible(false);
+
+//
+
+//
+//
+//
+//
+//
+//                    third.setOnFinished(e->{
+//                        reachedNextPillar = false;
+//
+//                    });
+//
+//
+//                    first.setOnFinished(event -> {
+//                        screen.getChildren().remove(first.getNode());
+//                        pillars.removeLast();
+//
+//
+//
+//                        second.play();
+//                        if ( !currentCherry.isCollected() ){
+//                            currentCherry.startTransition(600).play();
 //                        }
-                        pillars.remove(0);
-                        second.play();
-                        stickHero.getSpriteTransition(600).play();
-                        if ( !currentCherry.isCollected() ){
-                            currentCherry.startTransition(600).play();
-                        }
-                        currentStick.startTransition(600).play();
-                        System.out.println("second played");
+//                        System.out.println("second played");
+//
+//                    });
+//                    second.setOnFinished( e -> {
+//                        System.out.println("third played");
+//
+//                    });
+//                    first.play();
+//                    stickHero.getSpriteTransition(300).play();
+//                    currentStick.startTransition(300).play();
+//                    second.play();
 
-                    });
-                    second.setOnFinished( e -> {
-                        third.play();
-                        System.out.println("third played");
-
-                    });
-                    first.play();
 
                 }
         }
 
-        private void relocate()
-        {
-            //stick.setVisible(false);
-            stick.setLayoutX(100);
-            stick.setLayoutY(100);
-            //stick.setStartY(100);
-            //stick.setEndY(19);
-            //stick.setStartX(-100);
-            //stick.setEndX(-99);
-            //stick.setVisible(true);
+        private void resetSticks(){
+
+            screen.getChildren().remove(Sticks.get(0).getLine());
+            Sticks.add(0,currentStick);
+            currentStick = null;
+
+            //Sticks.get(0) is on the second pillar
+            currentStick = (Stick) Factory.getObject( screen, "stick");
+            currentStick.newLine( pillars.getLast(), stickHero.getImage());
+            Sticks.add(1,currentStick);
+
         }
 
     }

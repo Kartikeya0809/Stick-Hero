@@ -48,7 +48,7 @@ public class MainController {
             currentStage.setScene( nextScene );
             currentStage.show();
         } catch ( IOException e ){
-//            e.printStackTrace();
+            e.printStackTrace();
             System.out.println("FXML file not found");
         }
 

@@ -11,40 +11,34 @@ import javafx.util.Duration;
 
 public class Pillar implements PathObstacles {
 
-    private Rectangle redRectangle;
     private double midPoint;
     private Rectangle base;
     private AnchorPane screen;
     private TranslateTransition pillarTransition;
+    private final double MINIMUM_WIDTH = 20;
+    public static final double MAXIMUM_WIDTH = 100;
 
 
     public Pillar( AnchorPane root ) {
         // Constructor
         this.screen = root;
-        this.redRectangle = null;
     }
 
-    public void setRectangle(){
-        int width = 40; //TODO: randomize
+    public void setRectangle( double width ){
+        if ( width < MINIMUM_WIDTH ){
+            width = MINIMUM_WIDTH;
+        }if ( width > MAXIMUM_WIDTH ){
+            width = MAXIMUM_WIDTH;
+        }
+
         this.base = new Rectangle(285,305,width,201);
         this.base.setFill( Color.BLACK );
         this.base.setVisible(true);
 
     }
-    public void setRedBox( double start ){
-        start += this.base.getWidth()/4;
-        this.redRectangle = new Rectangle(start, 305,this.getMidPoint(), 5);
-
-        this.redRectangle.setFill(Color.ORANGERED);
-        this.redRectangle.toFront();
-        this.redRectangle.setVisible(false);
-    }
 
     public void assignRectangle( Rectangle first ){
         this.base = first;
-    }
-    public void assignMidBox( Rectangle redRectangle ){
-        this.redRectangle = redRectangle;
     }
 
     public Rectangle getBase() {
@@ -53,14 +47,6 @@ public class Pillar implements PathObstacles {
     public double getMidPoint(){
         this.midPoint = this.base.getLayoutX() + (this.base.getWidth()/2) ;
         return midPoint;
-    }
-
-    public Rectangle getRedBox() {
-        return redRectangle;
-    }
-    public Group getGroup(){
-        Group parentNode = new Group( this.base, this.redRectangle );
-        return parentNode;
     }
 
     @Override
@@ -72,5 +58,6 @@ public class Pillar implements PathObstacles {
         }
         return pillarTransition;
     }
+
 
 }
