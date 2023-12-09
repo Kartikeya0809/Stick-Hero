@@ -5,12 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import project.stickhero.UMLClasses.ProgressInfo;
+
 import java.io.IOException;
 
 public class MainApplication extends Application {
+
+    private static ProgressInfo pi;
     @Override
     public void start(Stage stage) {
         try{
+            pi = ProgressInfo.getInstance();
             FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("/project/stickhero/HomeScreen.fxml"));
             AnchorPane root = ( AnchorPane ) fxmlLoader.load();
             Scene scene = new Scene( root );
@@ -20,6 +25,14 @@ public class MainApplication extends Application {
             System.out.println(e.getMessage());
             System.out.println("FXML file not found");
         }
+    }
+
+    public static ProgressInfo getPi() {
+        return pi;
+    }
+
+    public static void setPi(ProgressInfo pi) {
+        MainApplication.pi = pi;
     }
 
     public static void main(String[] args) {
