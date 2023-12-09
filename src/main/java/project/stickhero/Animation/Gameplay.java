@@ -183,6 +183,8 @@ public class Gameplay {
                     if (stickHero.getImage().getLayoutX() < 0 ){
                         stickHero.getImage().setLayoutX(1);
                     }
+                    currentStick.getLine().setVisible(false);
+
                 });
             }
             else{
@@ -326,12 +328,6 @@ public class Gameplay {
                 System.out.println("after reoval: " +screen.getWidth());
 
 
-
-
-//                stickHero.getSpriteTransition(600).play();
-//                if ( !currentCherry.isCollected() ){
-//                    currentCherry.startTransition(600).play();
-//                }
                 currentStick.getLine().setVisible(false);
                 currentStick.setFallen(false);
                 currentStick.setExtended(false);
@@ -353,14 +349,7 @@ public class Gameplay {
             ParallelTransition allPillars = new ParallelTransition();
             allPillars.getChildren().addAll( first,second,third,stickHero.getSpriteTransition(600));
             allPillars.play();
-
-
         }
-
-
-
-
-
 
     }
 

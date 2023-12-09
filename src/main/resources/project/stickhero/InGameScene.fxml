@@ -22,7 +22,7 @@
                   <Image url="@../../Images/stick_figure.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="cherry" fitHeight="22.0" fitWidth="18.0" layoutX="123.0" layoutY="276.0" preserveRatio="true">
+            <ImageView fx:id="cherry" fitHeight="22.0" fitWidth="18.0" layoutX="123.0" layoutY="314.0" preserveRatio="true">
                <image>
                   <Image url="@../../Images/cherry.png" />
                </image>

@@ -42,7 +42,7 @@ public class Cherry implements  PathObstacles{
             transition.setDuration(Duration.millis(milliseconds));
         }
         if ( !isCollected() ){
-            trans
+//            trans
         }
         return transition;
     }
