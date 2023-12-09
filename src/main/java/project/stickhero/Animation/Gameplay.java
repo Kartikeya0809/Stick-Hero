@@ -15,6 +15,7 @@
     import javafx.util.Duration;
     import javafx.animation.*;
     import javafx.scene.shape.Line;
+    import javafx.scene.control.Label;
 
     import java.util.*;
 
@@ -28,9 +29,15 @@
         @FXML private Rectangle pillar1;
         @FXML private Rectangle pillar2;
         @FXML private Rectangle midPoint;
+        @FXML private Label counter;
+        @FXML private ImageView cherry;
+        @FXML private Label cherryCounter;
 
         private CourseFactory Factory;
         private Stick currentStick;
+        private Sprite hero;
+        private int incomplete = 0;
+        private int flag=0;
 
         public Gameplay() {
             // Can be instantiated more than once
@@ -75,6 +82,10 @@
             stick.setVisible(false);
             currentStick = (Stick) Factory.getObject(screen, "Stick");
             currentStick.setLine(stick);
+            counter.setText("0");
+            cherryCounter.setText("0");
+            hero = new Sprite();
+            //hero = new Sprite();
 
             pillars.addFirst(pillar1);
             pillars.addFirst(pillar2);
@@ -123,8 +134,12 @@
                 Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/250),e-> turn()));
                 loop.setCycleCount(90);
                 loop.play();
-                PauseTransition delay = new PauseTransition( Duration.millis(1000));
+                PauseTransition delay = new PauseTransition( Duration.millis(400));
                 delay.setOnFinished(e-> {
+                    if(currentStick.getLength()<pillar2.getLayoutX()-(pillar1.getLayoutX()+pillar1.getWidth())||(currentStick.getLength()>((pillar2.getLayoutX()-(pillar1.getLayoutX()+pillar1.getWidth()))+pillar2.getWidth())))
+                    {
+                        incomplete=1;
+                    }
                     currentStick.setFallen(true);
                     moveSprite();
 
@@ -148,18 +163,47 @@
 
         private void moveSprite()
         {
-            if ( currentStick.isFallen() ){
+            /*if ( currentStick.isFallen() ){
                 System.out.println(currentStick.getLength());
-                Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/100),e->move()));
-                loop.setCycleCount((int)(currentStick.getLength() + sprite.getFitWidth()));
+                Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/300),e->move()));
+                System.out.printf("incomplete: %d\n",incomplete);
+                if(incomplete==0)
+                {
+                    loop.setCycleCount((int)(sprite.getFitWidth()+pillar2.getX()-pillar1.getX()+(pillar1.getWidth()-pillar2.getWidth())));
+                }
+                else{
+                loop.setCycleCount((int)(currentStick.getLength() + sprite.getFitWidth()-5));}
                 loop.setOnFinished(e->{
                     reachedNextPillar = true;
                     if (sprite.getLayoutX() < 0 ){
                         sprite.setLayoutX(1);
                     }
                 });
-                loop.play();
+                loop.play();*/
     //            TODO : must change acc to stick length
+            if(currentStick.isFallen())
+            {
+                TranslateTransition movement = new TranslateTransition();
+                movement.setNode(sprite);
+                movement.setDuration(Duration.millis(450.0));
+                if(incomplete==0)
+                {
+                    movement.setByX(pillar2.getLayoutX()-5);
+                    movement.setOnFinished(e->{
+                        reachedNextPillar = true;
+                        if (sprite.getLayoutX() < 0 ){
+                            sprite.setLayoutX(1);
+                        }
+                    });
+                }
+                else{
+                    movement.setByX((int)(currentStick.getLength() + sprite.getFitWidth()+8));
+                    movement.setOnFinished(e->fall());
+                }
+
+
+                movement.play();
+
             }
         }
 
@@ -173,6 +217,15 @@
             currentStick.getLine().setVisible(true);
             currentStick.getLine().setEndY(currentStick.getLine().getEndY()-1);
             currentStick.incrementLength();
+        }
+
+        private void fall()
+        {
+            TranslateTransition f = new TranslateTransition();
+            f.setNode(sprite);
+            f.setDuration(Duration.millis(1000.0));
+            f.setByY(+500);
+            f.play();
         }
         @FXML
         private void handlePauseButton(){
@@ -220,17 +273,32 @@
             return pillar;
         }
 
+        private void incrementCherries()
+        {
+            cherryCounter.setText(Integer.toString(hero.getNumberOfCherries()+1));
+            hero.setNumberOfCherries(hero.getNumberOfCherries()+1);
+        }
+
 
 
 
         private void update()
 
         {
+                if(sprite.getBoundsInParent().intersects(cherry.getBoundsInParent()) && flag==0)
+                {
+                    cherry.setVisible(false);
+                    incrementCherries();
+                    flag++;
+
+                }
                 if ( reachedNextPillar && currentStick.isFallen()){
                     Pillar newPillar = null;
                     System.out.println("reached next pillar");
                     currentStick.setFallen(false);
                     reachedNextPillar = false;
+                    counter.setText(Integer.toString(hero.getScore()+1));
+                    hero.setScore(hero.getScore()+1);
 
                     if ( pillarShifts.size() < 3 ){
                         newPillar = createPillar();
