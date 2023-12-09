@@ -25,7 +25,7 @@
             <Font name="Microsoft Sans Serif" size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="99.0" layoutY="115.0" prefHeight="15.0" prefWidth="88.0" text="36" textAlignment="CENTER">
+      <Label fx:id="scoreDisplay" alignment="CENTER" layoutX="99.0" layoutY="115.0" prefHeight="15.0" prefWidth="88.0" text="36" textAlignment="CENTER">
          <font>
             <Font name="Microsoft Sans Serif" size="24.0" />
          </font>
@@ -35,7 +35,7 @@
             <Font name="Microsoft Sans Serif" size="14.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="96.0" layoutY="185.0" prefHeight="6.0" prefWidth="96.0" text="234" textAlignment="CENTER">
+      <Label fx:id="highScoreDisp" alignment="CENTER" layoutX="96.0" layoutY="185.0" prefHeight="6.0" prefWidth="96.0" text="234" textAlignment="CENTER">
          <font>
             <Font name="Microsoft Sans Serif" size="24.0" />
          </font>
@@ -56,6 +56,6 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Button fx:id="revive" layoutX="161.0" layoutY="337.0" mnemonicParsing="false" onAction="#reviveSprite" prefHeight="63.0" prefWidth="88.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;" />
+      <Button fx:id="revive" layoutX="161.0" layoutY="337.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="88.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;" />
    </children>
 </AnchorPane>
