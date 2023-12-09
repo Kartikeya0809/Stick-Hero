@@ -23,7 +23,7 @@ public class Stick implements PathObstacles{
     public TranslateTransition startTransition() {
         if ( transition == null ){
             transition = new TranslateTransition();
-            transition.setDuration(Duration.millis(1000.0));
+            transition.setDuration(Duration.millis(600.0));
         }
         transition.setNode( this.line );
         return transition;
