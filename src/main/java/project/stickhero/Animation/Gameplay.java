@@ -353,7 +353,7 @@ public class Gameplay {
                 System.out.println("third played");
 
             });
-            source.getBase().setFill(Color.YELLOW);
+//            source.getBase().setFill(Color.YELLOW);
 
             ParallelTransition allPillars = new ParallelTransition();
             allPillars.getChildren().addAll( first,second,third,stickHero.getSpriteTransition(600));
@@ -375,14 +375,14 @@ public class Gameplay {
     public void handleTap()
     {
         if(currentStick.isFallen() && !stickHero.isUpsideDown()) {
-            sprite.setTranslateY(30);
-            sprite.setScaleY(-1);
+            stickHero.getImage().setTranslateY(30);
+            stickHero.getImage().setScaleY(-1);
             stickHero.setUpsideDown(true);
         }
         else if(currentStick.isFallen()&& stickHero.isUpsideDown())
         {
-            sprite.setTranslateY(-0.25);
-            sprite.setScaleY(1);
+            stickHero.getImage().setTranslateY(-0.25);
+            stickHero.getImage().setScaleY(1);
             stickHero.setUpsideDown(false);
         }
     }
