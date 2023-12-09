@@ -18,13 +18,13 @@
          </image>
       </ImageView>
 
-        <Label alignment="CENTER" layoutX="108.0" layoutY="86.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
+        <Label fx:id="counter" alignment="CENTER" layoutX="108.0" layoutY="86.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
         </Label>
 
-        <Label alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="177.0" layoutY="23.0" prefHeight="27.0" prefWidth="48.0" text="99" textAlignment="CENTER" />
+        <Label fx:id="cherryCounter" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" layoutX="177.0" layoutY="23.0" prefHeight="27.0" prefWidth="48.0" text="99" textAlignment="CENTER" />
       <ImageView fitHeight="22.0" fitWidth="27.0" layoutX="231.0" layoutY="30.0" preserveRatio="true">
          <image>
             <Image url="@../../Images/cherry.png" />
@@ -35,7 +35,7 @@
             <Image url="@../../Images/stick_figure.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="22.0" fitWidth="18.0" layoutX="109.0" layoutY="286.0" preserveRatio="true">
+      <ImageView fx:id="cherry" fitHeight="22.0" fitWidth="18.0" layoutX="109.0" layoutY="286.0" preserveRatio="true">
          <image>
             <Image url="@../../Images/cherry.png" />
          </image>
