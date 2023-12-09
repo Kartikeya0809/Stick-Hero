@@ -21,6 +21,7 @@ public class Sprite {
     public Sprite(String name , ImageView spritePhoto) {
         this.spriteName = name;
         this.image = spritePhoto;
+        this.isUpsideDown = false;
     }
 
     public ImageView getImage() {
@@ -94,4 +95,11 @@ public class Sprite {
         // TODO implement here
     }
 
+    public boolean isUpsideDown() {
+        return isUpsideDown;
+    }
+
+    public void setUpsideDown(boolean upsideDown) {
+        isUpsideDown = upsideDown;
+    }
 }
