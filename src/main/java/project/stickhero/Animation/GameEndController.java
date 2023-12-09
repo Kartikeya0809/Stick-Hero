@@ -4,10 +4,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import project.stickhero.Backend.ProgressInfo;
+import project.stickhero.UMLClasses.ProgressInfo;
+import javafx.scene.control.Label;
 
 public class GameEndController {
     @FXML
@@ -32,20 +32,7 @@ public class GameEndController {
             currentStage.setScene( nextScene );
             currentStage.show();
         } catch ( Exception e ){
-            System.out.println("FXML file not found");
-        }
-
-    }
-    @FXML
-    private void reviveSprite(){
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/Revive.fxml"));
-            AnchorPane paused = fxmlLoader.load();
-            Scene nextScene = new Scene( paused );
-            Stage currentStage = ( Stage )  revive.getScene().getWindow();
-            currentStage.setScene( nextScene );
-            currentStage.show();
-        } catch ( Exception e ){
+//            e.printStackTrace();
             System.out.println("FXML file not found");
         }
 
@@ -55,9 +42,9 @@ public class GameEndController {
     {
         scoreDisplay.setText(Integer.toString(p.getCurrentScore()));
         highScoreDisp.setText(Integer.toString(p.getHighScore()));
+        p.setCurrentScore(0);
     }
 
 
 
 }
-
