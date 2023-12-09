@@ -45,6 +45,7 @@ public class Sprite {
 
     public TranslateTransition getSpriteTransition( double milliseconds ){
         if ( spriteNode == null || spriteNode.getDuration().toMillis() != milliseconds ){
+            System.out.println("Sprite transition set");
             spriteNode = new TranslateTransition();
             spriteNode.setNode( image );
             spriteNode.setDuration(Duration.millis(milliseconds));

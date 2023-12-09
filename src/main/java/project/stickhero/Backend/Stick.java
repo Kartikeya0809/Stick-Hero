@@ -46,10 +46,12 @@ public class Stick implements PathObstacles{
     }
 
     public void newLine( Rectangle tower, ImageView sprite ){
+        this.length = 0;
+        System.out.println("fnejf: " + tower.getBoundsInParent().getMaxX());
+        double x = (int)tower.getBoundsInParent().getMaxX() - 1 ;
 
-        Line line = new Line(243 ,505-201, 243  , 505-201);
+        Line line = new Line(x,505-201, x  , 505-201);
         screen.getChildren().add(line);
-        line.toFront();
         line.setVisible(false);
         line.setStrokeWidth(2);
         this.line = line;
@@ -58,6 +60,10 @@ public class Stick implements PathObstacles{
 
     public boolean isShort() {
         return isShort;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
     }
 
     public void setLine(Line line ){

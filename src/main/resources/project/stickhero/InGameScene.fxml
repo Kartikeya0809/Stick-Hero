@@ -15,7 +15,6 @@
       <AnchorPane fx:id="screen" prefHeight="505.0" prefWidth="281.0">
          <children>
             <Rectangle fx:id="pillar2" height="201.0" layoutX="194.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
-            <Rectangle fx:id="midPoint" fill="#ff1111" height="5.0" layoutX="211.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
             <Rectangle fx:id="pillar1" height="202.0" layoutY="304.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="65.0" />
             <Line fx:id="stick" endX="-99.99998474121094" endY="24.0" layoutX="162.0" layoutY="281.0" startX="-100.0" startY="23.0" strokeWidth="2.0" />
             <ImageView fx:id="sprite" fitHeight="27.0" fitWidth="27.0" layoutX="19.0" layoutY="273.0" preserveRatio="true">
