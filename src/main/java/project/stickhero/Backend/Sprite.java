@@ -1,9 +1,27 @@
 
 package project.stickhero.Backend;
 
-public abstract class Sprite {
+public class Sprite {
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getNumberOfCherries() {
+        return numberOfCherries;
+    }
+
+    public void setNumberOfCherries(int numberOfCherries) {
+        this.numberOfCherries = numberOfCherries;
+    }
 
     public Sprite() {
+        this.score=0;
+        this.numberOfCherries=0;
     }
 
     private int numberOfCherries;
@@ -16,7 +34,7 @@ public abstract class Sprite {
     private double currentPosition;
 
 
-//    private Score score;
+    private int score;
 
     private String name;
 
