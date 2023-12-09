@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 public class GameEndController {
     @FXML
     private Button backToHomeButton;
+    @FXML private Button revive;
     public Button getBackToHomeButton() {
         return backToHomeButton;
     }

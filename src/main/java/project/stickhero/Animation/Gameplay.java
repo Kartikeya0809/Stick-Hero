@@ -1,5 +1,5 @@
     package project.stickhero.Animation;
-    import javafx.geometry.Point2D;
+    import javafx.scene.paint.Color;
     import project.stickhero.Backend.*;
 
     import javafx.fxml.FXML;
@@ -54,7 +54,7 @@
             this.Sticks = new ArrayList<>();
         }
 
-        private LinkedList<Rectangle> pillars = new LinkedList<>();
+        private ArrayList<Rectangle> pillars = new ArrayList<>();
         private PauseTransition delay ;
 
         private Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/150),e->grow()));
@@ -91,8 +91,8 @@
 
             stickHero = new Sprite( "Hero No.1",sprite );
 
-            pillars.addFirst(pillar1);
-            pillars.addFirst(pillar2);
+            pillars.add(pillar1);
+            pillars.add(pillar2);
 
             Pillar firstPillar = (Pillar) Factory.getObject(screen,"Pillar");
             Pillar secondPillar = (Pillar) Factory.getObject(screen,"Pillar");
@@ -139,7 +139,7 @@
                 loop.play();
                 delay.setOnFinished(e-> {
 
-                    currentStick.isLengthEnough( pillars.getLast(), pillars.getFirst());
+                    currentStick.isLengthEnough( pillars.get(0), pillars.get(1));
                     System.out.println(currentStick.isShort());
                     System.out.println(currentStick.getLength());
                     currentStick.setFallen(true);
@@ -167,11 +167,11 @@
         {
             if(currentStick.isFallen()) {
                 System.out.println("in move sprite");
-                TranslateTransition movement = stickHero.getSpriteTransition(450);
+                TranslateTransition movement = stickHero.getSpriteTransition(500);
 
                 if( !currentStick.isShort() )
                 {
-                    movement.setByX( pillars.getFirst().getLayoutX()-5);
+                    movement.setByX( pillars.get(1).getLayoutX() + 2);
                     movement.setOnFinished(e->{
                         reachedNextPillar = true;
                         if (stickHero.getImage().getLayoutX() < 0 ){
@@ -213,6 +213,7 @@
                 Stage currentStage = ( Stage )  pauseButton.getScene().getWindow();
                 currentStage.setScene( nextScene );
                 currentStage.show();
+
             } catch ( Exception e ){
                 System.out.println("FXML file not found");
             }
@@ -234,19 +235,17 @@
 
         }
 
-        private Pillar createPillar( )
+        private void createPillar( )
         {
             Pillar pillar = null;
             PathObstacles object = Factory.getObject(screen,"pillar");
             if ( object != null && object.getClass() == Pillar.class ){
                 pillar = (Pillar) object;
-                pillar.setRectangle(getRandom().nextDouble(Pillar.MAXIMUM_WIDTH));
-                pillars.addFirst( pillar.getBase() );
-                screen.getChildren().add( pillar.getBase());
-
+                pillar.setRectangle(getRandom(), pillars.get(1) );
+                pillars.add( pillar.getBase() );
+                pillar.getBase().toFront();
 
             }
-            return pillar;
         }
 
         private void cherryCollected()
@@ -257,9 +256,7 @@
 
 
 
-        private void update()
-
-        {
+        private void update() {
                 if(!currentCherry.isCollected() && stickHero.getImage().getBoundsInParent().intersects(currentCherry.getImage().getBoundsInParent())) {
                     currentCherry.getImage().setVisible(false);
                     cherryCollected();
@@ -279,57 +276,20 @@
                     stickHero.setScore(stickHero.getScore()+1);
 
                     if ( pillars.size() < 3 ){
+                        System.out.println("new pillar created");
                         createPillar();
                     }
                     // Transition Objects for source Pillar, destination pillar and incoming pillar
 
                     TranslateTransition paneTransition =  new TranslateTransition( Duration.millis(1000),screen);
-                    paneTransition.setByX(- 200);
-                    paneTransition.setOnFinished(e->{
-                        screen.getChildren().remove(pillars.getLast());
-                        pillars.removeLast();
-                        resetSticks();
+                    double shift = screen.getWidth() - pillars.get(1).getLayoutX();
+                    paneTransition.setByX(-200);
 
-                    });
                     paneTransition.play();
 
-
-
-//
-
-//
-//
-//
-//
-//
-//                    third.setOnFinished(e->{
-//                        reachedNextPillar = false;
-//
-//                    });
-//
-//
-//                    first.setOnFinished(event -> {
-//                        screen.getChildren().remove(first.getNode());
-//                        pillars.removeLast();
-//
-//
-//
-//                        second.play();
-//                        if ( !currentCherry.isCollected() ){
-//                            currentCherry.startTransition(600).play();
-//                        }
-//                        System.out.println("second played");
-//
-//                    });
-//                    second.setOnFinished( e -> {
-//                        System.out.println("third played");
-//
-//                    });
-//                    first.play();
-//                    stickHero.getSpriteTransition(300).play();
-//                    currentStick.startTransition(300).play();
-//                    second.play();
-
+                    screen.getChildren().remove(pillars.get(0));
+                    pillars.remove(0);
+                    resetSticks();
 
                 }
         }
@@ -342,7 +302,7 @@
 
             //Sticks.get(0) is on the second pillar
             currentStick = (Stick) Factory.getObject( screen, "stick");
-            currentStick.newLine( pillars.getLast(), stickHero.getImage());
+            currentStick.newLine( pillars.get(0), stickHero.getImage());
             Sticks.add(1,currentStick);
 
         }

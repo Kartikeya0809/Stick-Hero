@@ -19,7 +19,7 @@ public class Stick implements PathObstacles{
     private boolean isFallen = false;
     private boolean isShort = false;
     private TranslateTransition transition;
-    private int length;
+    private int length = 0;
 
     public Stick( AnchorPane root ) {
         this.screen = root;

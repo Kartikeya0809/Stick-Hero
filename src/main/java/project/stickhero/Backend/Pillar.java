@@ -9,14 +9,16 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+import java.util.Random;
+
 public class Pillar implements PathObstacles {
 
     private double midPoint;
     private Rectangle base;
     private AnchorPane screen;
     private TranslateTransition pillarTransition;
-    private final double MINIMUM_WIDTH = 20;
-    public static final double MAXIMUM_WIDTH = 100;
+    private final double MINIMUM_WIDTH = 15;
+    public static final double MAXIMUM_WIDTH = 80;
 
 
     public Pillar( AnchorPane root ) {
@@ -24,18 +26,31 @@ public class Pillar implements PathObstacles {
         this.screen = root;
     }
 
-    public void setRectangle( double width ){
+    public void setRectangle( Random random, Rectangle pillar ){
+        double availableLength = pillar.getBoundsInParent().getMinX();
+        double endOfPillar2 = pillar.getLayoutX() + pillar.getWidth();
+
+        double width = random.nextDouble( availableLength );
+
         if ( width < MINIMUM_WIDTH ){
             width = MINIMUM_WIDTH;
         }if ( width > MAXIMUM_WIDTH ){
             width = MAXIMUM_WIDTH;
         }
+        double abyss =  random.nextDouble(availableLength - width );
 
-        this.base = new Rectangle(285,305,width,201);
+        this.base = new Rectangle(pillar.getLayoutX() + pillar.getWidth() + 100,304,65,201);
+        screen.getChildren().add( this.base );
+//        this.base.setWidth(width);
+//        double X = endOfPillar2 + abyss;
+//        this.base.setX(X);
+//        this.base.setY(505-201);
+//        this.base.setHeight(201);
+////        this.base.setX(pillar.)
         this.base.setFill( Color.BLACK );
         this.base.setVisible(true);
-
     }
+
 
     public void assignRectangle( Rectangle first ){
         this.base = first;
