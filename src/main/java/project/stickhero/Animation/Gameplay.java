@@ -16,7 +16,15 @@
     import javafx.animation.*;
     import javafx.scene.shape.Line;
     import javafx.scene.control.Label;
+    import javafx.scene.media.Media;
+    import javafx.scene.media.MediaPlayer;
+    //import javafx.
 
+    // music credit: Music: https://www.chosic.com/free-music/all/
+
+
+    import java.io.File;
+    import java.nio.file.Paths;
     import java.util.*;
 
     public class Gameplay {
@@ -72,7 +80,7 @@
             if ( spriteNode == null ){
                 spriteNode = new TranslateTransition();
                 spriteNode.setNode( sprite );
-                spriteNode.setDuration(Duration.millis(1000.0));
+                spriteNode.setDuration(Duration.millis(600.0));
             }
             return spriteNode;
         }
@@ -86,6 +94,9 @@
             cherryCounter.setText("0");
             hero = new Sprite();
             //hero = new Sprite();
+
+            //medp.play();
+
 
             pillars.addFirst(pillar1);
             pillars.addFirst(pillar2);
