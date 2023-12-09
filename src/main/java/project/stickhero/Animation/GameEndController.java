@@ -37,6 +37,7 @@ public class GameEndController {
         }
 
     }
+
     @FXML
     public void setData(ProgressInfo p)
     {
