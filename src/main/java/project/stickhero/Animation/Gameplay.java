@@ -326,14 +326,12 @@ public class Gameplay {
                 System.out.println("after reoval: " +screen.getWidth());
 
 
-                // move the second Pillar
-//                second.play();
+
 
 //                stickHero.getSpriteTransition(600).play();
 //                if ( !currentCherry.isCollected() ){
 //                    currentCherry.startTransition(600).play();
 //                }
-//                currentStick.startTransition(600).play();
                 currentStick.getLine().setVisible(false);
                 currentStick.setFallen(false);
                 currentStick.setExtended(false);
@@ -349,18 +347,13 @@ public class Gameplay {
 
 
             second.setOnFinished( e -> {
-//                third.play();
                 System.out.println("third played");
-
             });
-//            source.getBase().setFill(Color.YELLOW);
 
             ParallelTransition allPillars = new ParallelTransition();
             allPillars.getChildren().addAll( first,second,third,stickHero.getSpriteTransition(600));
             allPillars.play();
-//            first.play();
-//            second.play();
-//            third.play();
+
 
         }
 
@@ -386,16 +379,6 @@ public class Gameplay {
             stickHero.setUpsideDown(false);
         }
     }
-//    private void resetSticks(){
-//        screen.getChildren().remove(Sticks.get(0).getLine());
-//        Sticks.add(0,currentStick);
-//        currentStick = null;
-//
-//        //Sticks.get(0) is on the second pillar
-//        currentStick = (Stick) Factory.getObject( screen, "stick");
-//        currentStick.newLine( source.getBase(), stickHero.getImage());
-//        Sticks.add(1,currentStick);
-//    }
 
 
 

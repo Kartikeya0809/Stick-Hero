@@ -2,6 +2,7 @@
 package project.stickhero.Backend;
 
 
+import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;

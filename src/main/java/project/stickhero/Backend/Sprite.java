@@ -94,4 +94,12 @@ public class Sprite {
         // TODO implement here
     }
 
+    public boolean isUpsideDown() {
+        return isUpsideDown;
+    }
+
+    public void setUpsideDown(boolean upsideDown) {
+        isUpsideDown = upsideDown;
+    }
+
 }

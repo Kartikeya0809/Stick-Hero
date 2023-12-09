@@ -41,6 +41,9 @@ public class Cherry implements  PathObstacles{
             transition.setNode( image );
             transition.setDuration(Duration.millis(milliseconds));
         }
+        if ( !isCollected() ){
+            trans
+        }
         return transition;
     }
 
