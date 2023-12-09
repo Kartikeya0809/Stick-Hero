@@ -1,6 +1,7 @@
 
 package project.stickhero.UMLClasses;
 
+import project.stickhero.Backend.ProgressInfo;
 import project.stickhero.Backend.Sprite;
 
 /**
