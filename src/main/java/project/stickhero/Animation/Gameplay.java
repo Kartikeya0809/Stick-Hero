@@ -1,7 +1,7 @@
 package project.stickhero.Animation;
 import javafx.scene.Parent;
+import javafx.scene.paint.Color;
 import project.stickhero.Backend.*;
-
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,6 +18,8 @@ import javafx.util.Duration;
 import javafx.animation.*;
 import javafx.scene.shape.Line;
 import javafx.scene.control.Label;
+import project.stickhero.UMLClasses.ProgressInfo;
+
 
 // music credit: Music: https://www.chosic.com/free-music/all/
 
@@ -26,6 +28,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Gameplay {
+
 
 
     @FXML private Button pauseButton;
@@ -47,7 +50,7 @@ public class Gameplay {
     private AnchorPane Background;
     @FXML
     private AnchorPane labels;
-    private ProgressInfo pi;
+    private ProgressInfo pi;      // added
 
 
     public Gameplay() {
@@ -55,6 +58,7 @@ public class Gameplay {
         this.Factory = CourseFactory.getInstanceOf();
         this.currentStick = null;
         this.delay = new PauseTransition( Duration.millis(400));
+        //this.pi = ProgressInfo.getInstance();
     }
 
     private PauseTransition delay ;
@@ -81,6 +85,8 @@ public class Gameplay {
         return randomGen;
 
     }
+
+
     private void sendToOver() {
         FXMLLoader fml = new FXMLLoader();
         fml.setLocation(getClass().getResource("/project/stickhero/GameOver.fxml"));
@@ -102,14 +108,17 @@ public class Gameplay {
 
     }
 
+
+
+
+
+
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
         stick.setVisible(false);
         currentStick = (Stick) Factory.getObject(screen, "Stick");
         currentStick.setLine(stick);
-
-        pi = new ProgressInfo();
-
+        pi = MainApplication.getPi();
         scoreLabel.setText("0");
         cherryCounter.setText("0");
         currentCherry = (Cherry) Factory.getObject(screen, "cherry");
@@ -188,6 +197,10 @@ public class Gameplay {
     private void moveSprite()
     {
         if(currentStick.isFallen()) {
+            if(stickHero.isUpsideDown() && stickHero.getImage().getBoundsInParent().intersects(destination.getBase().getBoundsInParent()))
+            {
+                stickHero.fallIntoAbyss();
+            }
             TranslateTransition movement = stickHero.getSpriteTransition(450);
             System.out.println("stick has fallen");
             System.out.println("Stick.isShort(): " + currentStick.isShort());
@@ -251,16 +264,7 @@ public class Gameplay {
 
     private void Exit(){
         // When pressed anywhere in blank space
-        try{
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/GameOver.fxml"));
-            AnchorPane gameOver = fxmlLoader.load();
-            Scene nextScene = new Scene( gameOver );
-            Stage currentStage = ( Stage )  pauseButton.getScene().getWindow();
-            currentStage.setScene( nextScene );
-            currentStage.show();
-        } catch ( Exception e ){
-            System.out.println("FXML file not found");
-        }
+        sendToOver();
 
     }
 
@@ -283,12 +287,20 @@ public class Gameplay {
     {
         cherryCounter.setText(Integer.toString(stickHero.getNumberOfCherries()+1));
         stickHero.setNumberOfCherries(stickHero.getNumberOfCherries()+1);
+        pi.setTotalCherries(pi.getTotalCherries()+1);
+        System.out.println("Cherries: "+pi.getTotalCherries());
     }
 
     private void update()
 
     {
-        if( !currentCherry.isCollected() && stickHero.getImage().getBoundsInParent().intersects(currentCherry.getImage().getBoundsInParent())) {
+        if(currentStick.isFallen() && stickHero.isUpsideDown() && stickHero.getImage().getBoundsInParent().intersects(destination.getBase().getBoundsInParent()))
+        {
+            stickHero.fallIntoAbyss();
+            Exit();
+
+        }
+        if(!currentCherry.isCollected() && stickHero.getImage().getBoundsInParent().intersects(currentCherry.getImage().getBoundsInParent())) {
             currentCherry.getImage().setVisible(false);
             cherryCollected();
             currentCherry.setCollected(true);
@@ -303,7 +315,11 @@ public class Gameplay {
             currentStick.setFallen(false);
             reachedNextPillar = false;
             scoreLabel.setText(Integer.toString(stickHero.getScore()+1));
+
             stickHero.setScore(stickHero.getScore()+1);
+            System.out.println("Hero score: "+stickHero.getScore());
+            //pi.setCurrentScore(stickHero.getScore());
+            //System.out.println("Score updated to:"+pi.getCurrentScore());
 
             if ( pillarShifts.size() < 3 ){
                 nextPillar = createPillar();
@@ -338,10 +354,6 @@ public class Gameplay {
             stickHero.getSpriteTransition(600).setByX(-(second.getNode().getBoundsInParent().getMinX() + second.getNode().getBoundsInParent().getWidth()- first.getNode().getBoundsInParent().getMaxX() ));
             third.setOnFinished(e->{
                 reachedNextPillar = false;
-//                delay.setOnFinished(event ->{
-//                    currentCherry.getImage().setVisible(true);
-//                });
-//                delay.play();
             });
 
 
@@ -355,12 +367,6 @@ public class Gameplay {
                 currentStick.getLine().setVisible(false);
                 currentStick.setFallen(false);
                 currentStick.setExtended(false);
-
-                if ( !currentCherry.isCollected() ){
-                    System.out.println("hide cherry");
-                    currentCherry.getImage().setVisible(false);
-
-                }
 
                 source = destination;
                 destination = nextPillar;
@@ -402,24 +408,6 @@ public class Gameplay {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
