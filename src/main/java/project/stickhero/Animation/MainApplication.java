@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import project.stickhero.UMLClasses.ProgressInfo;
+import project.stickhero.Backend.ProgressInfo;
 
 import java.io.IOException;
 

@@ -15,6 +15,7 @@ public class Sprite {
     private int score;
     private String spriteName;
     private boolean isUpsideDown;
+    private boolean canCollect = true;
     private int numberOfRevives;
     private int cost;
 
@@ -22,6 +23,14 @@ public class Sprite {
         this.spriteName = name;
         this.image = spritePhoto;
         this.isUpsideDown = false;
+    }
+
+    public boolean canCollect() {
+        return canCollect;
+    }
+
+    public void cannotCollect(boolean canCollect) {
+        this.canCollect = canCollect;
     }
 
     public ImageView getImage() {

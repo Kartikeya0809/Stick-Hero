@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import project.stickhero.UMLClasses.ProgressInfo;
 import javafx.scene.control.Label;
+import project.stickhero.Backend.ProgressInfo;
 
 public class GameEndController {
     @FXML

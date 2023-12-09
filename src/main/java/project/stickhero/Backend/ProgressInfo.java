@@ -4,10 +4,18 @@ package project.stickhero.Backend;
 
 
 public class ProgressInfo {
+    private static ProgressInfo progress = null;
 
-    public ProgressInfo() {
+    private ProgressInfo() {
 
     }
+    public static ProgressInfo getInstance(){
+        if ( progress == null ){
+            progress = new ProgressInfo();
+        }
+        return progress;
+    }
+
 
     private int currentScore;
 

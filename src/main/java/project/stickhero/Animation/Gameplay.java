@@ -18,7 +18,6 @@ import javafx.util.Duration;
 import javafx.animation.*;
 import javafx.scene.shape.Line;
 import javafx.scene.control.Label;
-import project.stickhero.UMLClasses.ProgressInfo;
 
 
 // music credit: Music: https://www.chosic.com/free-music/all/
@@ -50,6 +49,7 @@ public class Gameplay {
     private AnchorPane Background;
     @FXML
     private AnchorPane labels;
+    @FXML
     private ProgressInfo pi;      // added
 
 
@@ -222,6 +222,7 @@ public class Gameplay {
             }
             else{
                 movement.setByX((int)(currentStick.getLength() + stickHero.getImage().getFitWidth()+8));
+                stickHero.cannotCollect(false);
                 movement.setOnFinished(e->{
                     stickHero.fallIntoAbyss();
                     if ( currentCherry.isCollected() ){
@@ -300,15 +301,18 @@ public class Gameplay {
             Exit();
 
         }
-        if(!currentCherry.isCollected() && stickHero.getImage().getBoundsInParent().intersects(currentCherry.getImage().getBoundsInParent())) {
-            currentCherry.getImage().setVisible(false);
-            cherryCollected();
-            currentCherry.setCollected(true);
+        if ( stickHero.canCollect() ){
+            if(!currentCherry.isCollected() && stickHero.getImage().getBoundsInParent().intersects(currentCherry.getImage().getBoundsInParent())) {
+                currentCherry.getImage().setVisible(false);
+                cherryCollected();
+                currentCherry.setCollected(true);
 
-        }else{
-            //cherry will remain visible
-            //will need to invoke its transition
+            }else{
+                //cherry will remain visible
+                //will need to invoke its transition
+            }
         }
+
         if ( reachedNextPillar && currentStick.isFallen()){
 //            source.getBase().setFill(Color.YELLOW);
             System.out.println("reached next pillar");
