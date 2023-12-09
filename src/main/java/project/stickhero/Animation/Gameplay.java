@@ -280,7 +280,10 @@
         }
 
 
+        private void upsideDown()
+        {
 
+        }
 
         private void update()
 
@@ -315,7 +318,7 @@
                     // For Stick
                     currentStick.startTransition().setByX(-second.getNode().getLayoutX());
 
-                    first.setByX( -first.getNode().getLayoutX() );
+                    first.setByX( -2*first.getNode().getLayoutX() );
                     second.setByX( -second.getNode().getLayoutX() );
                     double shift = getRandom().nextDouble(275-pillars.get(0).getWidth());
                     if ( shift < pillars.get(1).getWidth()){
@@ -329,7 +332,10 @@
 
 
                     getSpriteNode().setByX(-second.getNode().getLayoutX());
-                    third.setOnFinished(e->reachedNextPillar = false);
+                    third.setOnFinished(e->{
+                        reachedNextPillar = false;
+                        relocate();
+                    });
 
 
                     first.setOnFinished(event -> {
@@ -354,6 +360,20 @@
                 }
         }
 
+        private void relocate()
+        {
+            //stick.setVisible(false);
+            stick.setLayoutX(100);
+            stick.setLayoutY(100);
+            //stick.setStartY(100);
+            //stick.setEndY(19);
+            //stick.setStartX(-100);
+            //stick.setEndX(-99);
+            //stick.setVisible(true);
+        }
+
     }
+
+
 
 
