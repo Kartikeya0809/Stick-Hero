@@ -18,7 +18,7 @@
          </image>
       </ImageView>
 
-        <Label fx:id="counter" alignment="CENTER" layoutX="108.0" layoutY="86.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
+        <Label fx:id="scoreLabel" alignment="CENTER" layoutX="108.0" layoutY="86.0" opacity="0.5" prefHeight="32.0" prefWidth="65.0" style="-fx-background-color: #a6a6a6; -fx-background-radius: 5; -fx-opacity: 0.5;" text="28" textFill="WHITE">
             <font>
                 <Font size="23.0" />
             </font>
@@ -43,7 +43,7 @@
       <Button fx:id="pauseButton" layoutX="25.0" layoutY="24.0" mnemonicParsing="false" onAction="#handlePauseButton" prefHeight="36.0" prefWidth="38.0" style="-fx-background-color: #000000; -fx-background-radius: 100; -fx-opacity: 0.05;" />
       <Rectangle fx:id="pillar1" arcHeight="5.0" arcWidth="5.0" height="201.0" layoutY="305.0" smooth="false" stroke="BLACK" strokeType="INSIDE" width="65.0" />
       <Rectangle fx:id="pillar2" arcHeight="5.0" arcWidth="5.0" height="201.0" layoutX="193.0" layoutY="305.0" stroke="BLACK" strokeType="INSIDE" width="48.0" />
-      <Line fx:id="stick" endX="-100.0" endY="17.0" layoutX="162.0" layoutY="285.0" onScrollStarted="#handleExitButton" startX="-100.0" startY="20.0" strokeWidth="2.0" />
+      <Line fx:id="stick" endX="-100.0" endY="17.0" layoutX="162.0" layoutY="285.0" startX="-100.0" startY="20.0" strokeWidth="2.0" />
       <Rectangle fx:id="midPoint" fill="#ff1111" height="5.0" layoutX="210.0" layoutY="304.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="15.0" />
 
 

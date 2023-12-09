@@ -4,6 +4,7 @@ package project.stickhero.Backend;
 import javafx.animation.TranslateTransition;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 
@@ -13,6 +14,7 @@ public class Stick implements PathObstacles{
     private Line line;
     private boolean isExtended = false;
     private boolean isFallen = false;
+    private boolean isShort = false;
     private TranslateTransition transition;
     private int length;
 
@@ -20,13 +22,24 @@ public class Stick implements PathObstacles{
         this.screen = root;
     }
     @Override
-    public TranslateTransition startTransition() {
-        if ( transition == null ){
+    public TranslateTransition startTransition( double milliseconds ) {
+        if ( transition == null || transition.getDuration().toMillis() != milliseconds ){
             transition = new TranslateTransition();
-            transition.setDuration(Duration.millis(600.0));
+            transition.setDuration(Duration.millis(milliseconds ));
         }
         transition.setNode( this.line );
         return transition;
+    }
+    public void isLengthEnough( Rectangle source, Rectangle destination ){
+        if(length < destination.getLayoutX()-( source.getLayoutX()+ source.getWidth())||
+                (length > ((destination.getLayoutX()-( source.getLayoutX()+ source.getWidth()))+destination.getWidth())))
+        {
+            isShort = true;
+        }
+    }
+
+    public boolean isShort() {
+        return isShort;
     }
 
     public void setLine(Line line ){

@@ -15,6 +15,7 @@ public class Pillar implements PathObstacles {
     private double midPoint;
     private Rectangle base;
     private AnchorPane screen;
+    private TranslateTransition pillarTransition;
 
 
     public Pillar( AnchorPane root ) {
@@ -63,10 +64,12 @@ public class Pillar implements PathObstacles {
     }
 
     @Override
-    public TranslateTransition startTransition() {
-        TranslateTransition pillarTransition = new TranslateTransition(Duration.millis(600));
-        pillarTransition.setNode( getBase() );
-        pillarTransition.setOnFinished( event -> screen.getChildren().remove( getBase() ));
+    public TranslateTransition startTransition( double milliseconds ) {
+        if ( pillarTransition == null || pillarTransition.getDuration().toMillis() != milliseconds ){
+            pillarTransition = new TranslateTransition(Duration.millis( milliseconds ));
+            pillarTransition.setNode( getBase() );
+            pillarTransition.setOnFinished( event -> screen.getChildren().remove( getBase() ));
+        }
         return pillarTransition;
     }
 

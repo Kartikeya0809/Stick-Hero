@@ -1,7 +1,31 @@
 
 package project.stickhero.Backend;
 
+import javafx.animation.TranslateTransition;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
+
 public class Sprite {
+
+
+
+    private int numberOfCherries;
+    private ImageView image ;
+    private TranslateTransition spriteNode;
+    private int score;
+    private String spriteName;
+    private boolean isUpsideDown;
+    private int numberOfRevives;
+    private int cost;
+
+    public Sprite(String name , ImageView spritePhoto) {
+        this.spriteName = name;
+        this.image = spritePhoto;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
 
     public int getScore() {
         return score;
@@ -19,123 +43,52 @@ public class Sprite {
         this.numberOfCherries = numberOfCherries;
     }
 
-    public Sprite() {
-        this.score=0;
-        this.numberOfCherries=0;
+    public TranslateTransition getSpriteTransition( double milliseconds ){
+        if ( spriteNode == null || spriteNode.getDuration().toMillis() != milliseconds ){
+            spriteNode = new TranslateTransition();
+            spriteNode.setNode( image );
+            spriteNode.setDuration(Duration.millis(milliseconds));
+        }
+        return spriteNode;
     }
-
-    private int numberOfCherries;
-
-    private boolean isAlive;
-
-
-    private boolean isMoving;
-
-    private double currentPosition;
-
-
-    private int score;
-
-    private String name;
-
-
-    private boolean isUpsideDown;
-
-
-    private int numberOfRevives;
-
-//    private ProgressInfo progress;
-
-
-    private int cost;
+    public void fallIntoAbyss() {
+        TranslateTransition fallingSprite = getSpriteTransition(1000);;
+        fallingSprite.setByY(+500);
+        fallingSprite.play();
+    }
+    public void lostCherry(){
+        this.numberOfCherries --;
+    }
 
 
     public void extendStick(int howMuch ) {
         // TODO implement here
     }
-
     public void stopMoving() {
         // TODO implement here
     }
-
     public void collectCherry() {
         // TODO implement here
     }
-
-    public void hang() {
-        // TODO implement here
-    }
-
-
-    public void perish() {
-        // TODO implement here
-    }
-
-
     public void revive() {
         // TODO implement here
     }
 
-
-    public void showProgressInfo() {
-        // TODO implement here
-    }
-
-    public double getCurrentPosition() {
-        // TODO implement here
-        return 0.0d;
-    }
-
-
-//    public Score getScore() {
-//        // TODO implement here
-//        return null;
-//    }
-
-    public boolean getUpsideDownStatus() {
-        // TODO implement here
-        return false;
-    }
-
-
     public int getCost() {
-        // TODO implement here
-        return 0;
+        return cost;
     }
-
-//    public ProgressInfo getProgress() {
-//        // TODO implement here
-//        return null;
-//    }
-
-
     public String getName() {
-        // TODO implement here
-        return "";
+        return spriteName;
     }
 
     public int getNumberOfRevives() {
-        // TODO implement here
-        return 0;
-    }
-
-    public boolean getAliveStatus() {
-        // TODO implement here
-        return false;
-    }
-
-    public boolean getMovingStatus() {
-        // TODO implement here
-        return false;
+        return numberOfRevives;
     }
 
     public void moveUpright() {
         // TODO implement here
     }
 
-    /**
-     * @return
-     */
     public void moveUpsideDown() {
         // TODO implement here
     }

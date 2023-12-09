@@ -6,10 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.media.Media;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,32 +17,26 @@ import java.io.IOException;
 //Music promoted by https://www.chosic.com/free-music/all/
 //Attribution 4.0 International (CC BY 4.0)
 //https://creativecommons.org/licenses/by/4.0/
-//
 
 public class MainController {
     @FXML
     private Button playButton;
-
-
-
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
         //String path = "C:\\Users\\vijva\\Downloads\\Brendan_Kinsella_-_01_-_Bach_-_Aria_Variata_BWV_989_Variation_no1(chosic.com).mp3";
         String path = "src/main/resources/Music/Theme.mp3";
         Media med = new Media(new File(path).toURI().toString());
-        //edia med = new Media(new File())
-        MediaPlayer medp = new MediaPlayer(med);
-        medp.setOnEndOfMedia(new Runnable()
+        MediaPlayer mediaPlayer = new MediaPlayer(med);
+        mediaPlayer.setOnEndOfMedia(new Runnable()
         {
             public void run()
             {
-                medp.seek(Duration.ZERO);
+                mediaPlayer.seek(Duration.ZERO);
             }
 
         });
-        medp.setAutoPlay(true);
-        // Not Required Right now
+        mediaPlayer.setAutoPlay(true);
     }
     @FXML
     private void handlePlayButton(){
@@ -54,7 +48,7 @@ public class MainController {
             currentStage.setScene( nextScene );
             currentStage.show();
         } catch ( IOException e ){
-            e.printStackTrace();
+//            e.printStackTrace();
             System.out.println("FXML file not found");
         }
 

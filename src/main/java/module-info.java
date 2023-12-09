@@ -1,6 +1,7 @@
 module com.project.stickhero {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 
 
     opens project.stickhero to javafx.fxml;
