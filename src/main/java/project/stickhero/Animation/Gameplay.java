@@ -279,17 +279,25 @@
                         System.out.println("new pillar created");
                         createPillar();
                     }
-                    // Transition Objects for source Pillar, destination pillar and incoming pillar
+                    System.out.println( "layoutX: "+ pillars.get(1).getLayoutX());
 
+                    // Transition Objects for source Pillar, destination pillar and incoming pillar
                     TranslateTransition paneTransition =  new TranslateTransition( Duration.millis(1000),screen);
-                    double shift = screen.getWidth() - pillars.get(1).getLayoutX();
-                    paneTransition.setByX(-200);
+                    double shift = screen.getWidth()  - 80;
+
+                    paneTransition.setByX(-shift);
+                    paneTransition.setOnFinished(e->{
+                        System.out.println( "layoutX: "+ pillars.get(1).getLayoutX());
+
+                        screen.getChildren().remove(pillars.get(0));
+                        pillars.remove(0);
+                        resetSticks();
+                    });
 
                     paneTransition.play();
 
-                    screen.getChildren().remove(pillars.get(0));
-                    pillars.remove(0);
-                    resetSticks();
+
+
 
                 }
         }
