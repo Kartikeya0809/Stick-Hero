@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="Background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMousePressed="#handleGrowth" onMouseReleased="#stopGrowth" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.Animation.Gameplay">
+<AnchorPane fx:id="Background" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handleTap" onMousePressed="#handleGrowth" onMouseReleased="#stopGrowth" prefHeight="505.0" prefWidth="281.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.stickhero.Animation.Gameplay">
 
     <children>
       <AnchorPane fx:id="screen" prefHeight="505.0" prefWidth="281.0">
