@@ -52,7 +52,7 @@ public class GameEndController {
     @FXML
     private void buyAnotherChance(){
         try{
-            System.out.println("Gameplay revived: " + Gameplay.isRevived());
+//            System.out.println("Gameplay revived: " + Gameplay.isRevived());
             if ( isFirstEvent && !Gameplay.isRevived() ) {
                 // only one revive available
                 Gameplay.setRevived(true);
