@@ -1,6 +1,5 @@
 package project.stickhero.Animation;
 import javafx.scene.Parent;
-import javafx.scene.paint.Color;
 import project.stickhero.Backend.*;
 
 import javafx.fxml.FXML;
@@ -41,6 +40,7 @@ public class Gameplay {
     @FXML private Label cherryCounter;
 
     private final CourseFactory Factory;
+    private static boolean revived = false;
     private Stick currentStick;
     private Sprite stickHero;
     private int cherriesInPath = 1;
@@ -50,28 +50,19 @@ public class Gameplay {
     @FXML
     private AnchorPane labels;
     @FXML
-    private ProgressInfo pi;      // added
-
+    private ProgressInfo gameProgress;
 
     public Gameplay() {
         // Can be instantiated more than once
         this.Factory = CourseFactory.getInstanceOf();
         this.currentStick = null;
         this.delay = new PauseTransition( Duration.millis(400));
-        //this.pi = ProgressInfo.getInstance();
     }
-
     private PauseTransition delay ;
-    private Pillar source;
-    private Pillar destination;
-    private Pillar nextPillar ;
-    private ArrayList<Stick> Sticks ;
-
-
+    private Pillar source, destination, nextPillar;
     private Timeline loop = new Timeline(new KeyFrame(Duration.millis(1000.0/150),e->grow()));
     private AnimationTimer game;
     private ArrayList<TranslateTransition> pillarShifts = new ArrayList<>();
-
     private boolean reachedNextPillar = false;
     private Random randomGen;
 
@@ -83,50 +74,50 @@ public class Gameplay {
             randomGen = new Random();
         }
         return randomGen;
-
+    }
+    public static boolean isRevived() {
+        return revived;
     }
 
+    public static void setRevived(boolean revived) {
+        Gameplay.revived = revived;
+    }
 
     private void sendToOver() {
         FXMLLoader fml = new FXMLLoader();
         fml.setLocation(getClass().getResource("/project/stickhero/GameOver.fxml"));
         try {
-            pi.setCurrentScore(stickHero.getScore());
-            Parent p = fml.load();
-            Scene sc = new Scene(p);
-            GameEndController gec = fml.getController();
-            if (pi.getCurrentScore() >= pi.getHighScore()) {
-                pi.setHighScore(pi.getCurrentScore());
+            gameProgress.setCurrentScore(stickHero.getScore());
+            Parent parent = fml.load();
+            Scene sc = new Scene(parent);
+            GameEndController controller = fml.getController();
+            if (gameProgress.getCurrentScore() >= gameProgress.getHighScore()) {
+                gameProgress.setHighScore(gameProgress.getCurrentScore());
             }
-            gec.setData(pi);
-            Stage stag = (Stage) (scoreLabel.getScene().getWindow());
+            controller.setData(gameProgress);
+            Stage stag = new Stage();
+            stag = (Stage) (scoreLabel.getScene().getWindow());
             stag.setScene(sc);
             stag.show();
+
         } catch (IOException e) {
-            System.out.println("Exception");
+//            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
     }
-
-
-
-
-
-
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
+//        System.out.println("Gameplay revived: " + Gameplay.isRevived());
+
         stick.setVisible(false);
         currentStick = (Stick) Factory.getObject(screen, "Stick");
         currentStick.setLine(stick);
-        pi = MainApplication.getPi();
-        scoreLabel.setText("0");
-        cherryCounter.setText("0");
+
         currentCherry = (Cherry) Factory.getObject(screen, "cherry");
         currentCherry.setImage( cherry );
 
         stickHero = new Sprite( "Hero No.1",sprite );
-
-
         source = (Pillar) Factory.getObject(screen,"Pillar");
         destination  = (Pillar) Factory.getObject(screen,"Pillar");
         source.assignRectangle(pillar1);
@@ -134,6 +125,15 @@ public class Gameplay {
 
         pillarShifts.add( source.startTransition(600) );
         pillarShifts.add( destination.startTransition(600) );
+
+        gameProgress = MainApplication.getPi();
+
+        if (!revived){
+            gameProgress.setCurrentScore(0);
+        }
+        stickHero.setProgressInfo( gameProgress );
+        scoreLabel.setText(String.valueOf(stickHero.getScore()));
+        cherryCounter.setText(String.valueOf(stickHero.getNumberOfCherries()));
 
         game = new AnimationTimer() {
             @Override
@@ -202,16 +202,16 @@ public class Gameplay {
                 stickHero.fallIntoAbyss();
             }
             TranslateTransition movement = stickHero.getSpriteTransition(450);
-            System.out.println("stick has fallen");
-            System.out.println("Stick.isShort(): " + currentStick.isShort());
+//            System.out.println("stick has fallen");
+//            System.out.println("Stick.isShort(): " + currentStick.isShort());
 
 
             if( !currentStick.isShort() )
             {
-                System.out.println("Sprite moves by : "+  currentStick.getLength() + stickHero.getImage().getFitWidth());
+//                System.out.println("Sprite moves by : "+  currentStick.getLength() + stickHero.getImage().getFitWidth());
                 movement.setByX(destination.getBase().getBoundsInParent().getMaxX() - source.getBase().getBoundsInParent().getMaxX());
                 movement.setOnFinished(e->{
-                    System.out.println("movement COmplete?");
+//                    System.out.println("movement COmplete?");
                     reachedNextPillar = true;
                     if (stickHero.getImage().getLayoutX() < 0 ){
                         stickHero.getImage().setLayoutX(1);
@@ -225,6 +225,7 @@ public class Gameplay {
                 stickHero.cannotCollect(false);
                 movement.setOnFinished(e->{
                     stickHero.fallIntoAbyss();
+//                    System.out.println(12345);
                     if ( currentCherry.isCollected() ){
                         stickHero.lostCherry();
                     }
@@ -233,7 +234,7 @@ public class Gameplay {
 
                 });
             }
-            System.out.println("movement about to be played");
+//            System.out.println("movement about to be played");
             movement.play();
 
         }
@@ -288,8 +289,8 @@ public class Gameplay {
     {
         cherryCounter.setText(Integer.toString(stickHero.getNumberOfCherries()+1));
         stickHero.setNumberOfCherries(stickHero.getNumberOfCherries()+1);
-        pi.setTotalCherries(pi.getTotalCherries()+1);
-        System.out.println("Cherries: "+pi.getTotalCherries());
+        gameProgress.setTotalCherries(gameProgress.getTotalCherries()+1);
+//        System.out.println("Cherries: "+ gameProgress.getTotalCherries());
     }
 
     private void update()
@@ -315,15 +316,13 @@ public class Gameplay {
 
         if ( reachedNextPillar && currentStick.isFallen()){
 //            source.getBase().setFill(Color.YELLOW);
-            System.out.println("reached next pillar");
+//            System.out.println("reached next pillar");
             currentStick.setFallen(false);
             reachedNextPillar = false;
             scoreLabel.setText(Integer.toString(stickHero.getScore()+1));
 
             stickHero.setScore(stickHero.getScore()+1);
-            System.out.println("Hero score: "+stickHero.getScore());
-            //pi.setCurrentScore(stickHero.getScore());
-            //System.out.println("Score updated to:"+pi.getCurrentScore());
+            gameProgress.setCurrentScore(stickHero.getScore());
 
             if ( pillarShifts.size() < 3 ){
                 nextPillar = createPillar();
@@ -331,7 +330,7 @@ public class Gameplay {
                 pillarShifts.add(  nextPillar.startTransition(600) );
             }
 
-            System.out.println(pillarShifts.size());
+//            System.out.println(pillarShifts.size());
 
             // Transition Objects for source Pillar, destination pillar and incoming pillar
             TranslateTransition first = pillarShifts.remove(0);
@@ -343,8 +342,8 @@ public class Gameplay {
             first.setByX( (- second.getNode().getLayoutX() ) );
             second.setByX( -(second.getNode().getBoundsInParent().getMinX() + second.getNode().getBoundsInParent().getWidth()- first.getNode().getBoundsInParent().getMaxX() ));
 //            System.out.println("screen width : " +screen.getWidth() );
-            System.out.println("first max x: " +first.getNode().getBoundsInParent().getMaxX() );
-            System.out.println("second max x: " +second.getNode().getBoundsInParent().getMaxX() );
+//            System.out.println("first max x: " +first.getNode().getBoundsInParent().getMaxX() );
+//            System.out.println("second max x: " +second.getNode().getBoundsInParent().getMaxX() );
 
             double shift = getRandom().nextDouble(200-destination.getBase().getWidth());
             if ( shift < destination.getBase().getWidth()){
@@ -365,7 +364,7 @@ public class Gameplay {
                 // When first pillar has shifted back
                 // remove the source Rectangle from AnchorPane
                 screen.getChildren().remove(first.getNode());
-                System.out.println("after reoval: " +screen.getWidth());
+//                System.out.println("after reoval: " +screen.getWidth());
 
 
                 currentStick.getLine().setVisible(false);
@@ -377,13 +376,13 @@ public class Gameplay {
                 nextPillar = null;
 
                 currentStick.newLine( source.getBase(), stickHero.getImage());
-                System.out.println("second played");
+//                System.out.println("second played");
 
             });
 
 
             second.setOnFinished( e -> {
-                System.out.println("third played");
+//                System.out.println("third played");
             });
 
             ParallelTransition allPillars = new ParallelTransition();

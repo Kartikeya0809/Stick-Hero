@@ -34,8 +34,21 @@ public class MainApplication extends Application {
     public static void setPi(ProgressInfo pi) {
         MainApplication.pi = pi;
     }
+    public static ProgressInfo savedProgress = pi ;
+
+
+    public static ProgressInfo getSavedProgress() {
+        return savedProgress;
+    }
+
+    public static void setSavedProgress(ProgressInfo savedProgress) {
+        MainApplication.savedProgress = savedProgress;
+    }
+
 
     public static void main(String[] args) {
         launch(args);
     }
+
+
 }

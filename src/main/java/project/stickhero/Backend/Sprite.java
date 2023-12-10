@@ -5,24 +5,26 @@ import javafx.animation.TranslateTransition;
 import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
-public class Sprite {
+public class Sprite implements  Invertable{
 
 
-
-    private int numberOfCherries;
+    private int numberOfCherries = 50;
     private ImageView image ;
     private TranslateTransition spriteNode;
     private int score;
     private String spriteName;
     private boolean isUpsideDown;
     private boolean canCollect = true;
-    private int numberOfRevives;
-    private int cost;
+    private boolean revived = false;
 
     public Sprite(String name , ImageView spritePhoto) {
         this.spriteName = name;
         this.image = spritePhoto;
         this.isUpsideDown = false;
+    }
+    public void setProgressInfo( ProgressInfo info ){
+        this.setScore(info.getCurrentScore());
+        this.setNumberOfCherries( info.getTotalCherries());
     }
 
     public boolean canCollect() {
@@ -39,6 +41,10 @@ public class Sprite {
 
     public int getScore() {
         return score;
+    }
+    public void usedRevive(){
+        this.revived = true;
+        this.numberOfCherries -= 10;
     }
 
     public void setScore(int score) {
@@ -72,42 +78,14 @@ public class Sprite {
     }
 
 
-    public void extendStick(int howMuch ) {
-        // TODO implement here
-    }
-    public void stopMoving() {
-        // TODO implement here
-    }
-    public void collectCherry() {
-        // TODO implement here
-    }
-    public void revive() {
-        // TODO implement here
-    }
-
-    public int getCost() {
-        return cost;
-    }
     public String getName() {
         return spriteName;
     }
-
-    public int getNumberOfRevives() {
-        return numberOfRevives;
-    }
-
-    public void moveUpright() {
-        // TODO implement here
-    }
-
-    public void moveUpsideDown() {
-        // TODO implement here
-    }
-
+    @Override
     public boolean isUpsideDown() {
         return isUpsideDown;
     }
-
+    @Override
     public void setUpsideDown(boolean upsideDown) {
         isUpsideDown = upsideDown;
     }

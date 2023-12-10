@@ -6,6 +6,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import project.stickhero.Backend.ProgressInfo;
+
+import java.io.*;
 
 public class PausedController {
     @FXML
@@ -33,8 +36,53 @@ public class PausedController {
         }
 
     }
+    private void serializeProgress( ProgressInfo progress ) throws IOException {
+        ObjectOutputStream out = null ;
+        try{
+            out = new ObjectOutputStream( new FileOutputStream( "SavedProgress.txt"));
+            out.writeObject( progress );
+        }finally{
+            if ( out != null ){
+                out.close();
+            }
+        }
+    }
+    private ProgressInfo deserializeProgress() throws IOException, ClassNotFoundException{
+        ObjectInputStream in = null ;
+        ProgressInfo prevInfo;
+        try{
+            in = new ObjectInputStream( new FileInputStream( "SavedProgress.txt"));
+            prevInfo = ( ProgressInfo ) in.readObject();
+        }finally{
+            if ( in != null ){
+                in.close();
+            }
+        }
+        return prevInfo;
+    }
     @FXML
     private void handleleaveButton(){
+        try{
+            // Serialize and Deserialize
+//            System.out.println("serialized: " + MainApplication.getPi().getCurrentScore());
+//            System.out.println("serialized cherry: " + MainApplication.getPi().getTotalCherries());
+
+            serializeProgress( MainApplication.getPi() );
+            ProgressInfo lastPlayedGame = deserializeProgress();
+            if ( lastPlayedGame != null ){
+                // serialization successful
+                //writing to MainApplication
+                MainApplication.setSavedProgress( lastPlayedGame );
+//                System.out.println("serialized: " + MainApplication.getSavedProgress().getCurrentScore());
+
+            }
+        }catch ( IOException e ){
+            System.out.println(e.getMessage());
+            System.out.println("\nFailed to Save Progress");
+        }catch( ClassNotFoundException e){
+            System.out.println(e.getMessage());
+        }
+
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/project/stickhero/HomeScreen.fxml"));
             AnchorPane paused = fxmlLoader.load();

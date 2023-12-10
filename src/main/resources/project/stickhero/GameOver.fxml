@@ -40,6 +40,11 @@
             <Font name="Microsoft Sans Serif" size="24.0" />
          </font>
       </Label>
+      <Button layoutX="85.0" layoutY="264.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #e35752;" text="SHARE" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
       <ImageView fitHeight="80.0" fitWidth="131.0" layoutX="144.0" layoutY="330.0">
          <image>
             <Image url="@../../Images/revive.png" />
@@ -51,11 +56,6 @@
          </image>
       </ImageView>
       <Button fx:id="backToHomeButton" layoutX="28.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleBackToHomeButton" prefHeight="63.0" prefWidth="88.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;" />
-      <Button layoutX="85.0" layoutY="264.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="110.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: #e35752;" text="SHARE" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
-      <Button fx:id="revive" layoutX="161.0" layoutY="337.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="88.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;" />
+      <Button fx:id="revive" layoutX="161.0" layoutY="337.0" mnemonicParsing="false" onAction="#buyAnotherChance" prefHeight="63.0" prefWidth="88.0" style="-fx-background-color: #ffffff; -fx-background-radius: 5; -fx-opacity: 0.4;" />
    </children>
 </AnchorPane>

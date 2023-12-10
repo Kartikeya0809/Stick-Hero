@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -21,6 +22,8 @@ import java.io.IOException;
 public class MainController {
     @FXML
     private Button playButton;
+//    @FXML private Label HighScore;
+//    @FXML private Label lastScore;
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
     public void initialize() {
@@ -28,6 +31,9 @@ public class MainController {
         String path = "src/main/resources/Music/Theme.mp3";
         Media med = new Media(new File(path).toURI().toString());
         MediaPlayer mediaPlayer = new MediaPlayer(med);
+//        HighScore.setText(String.valueOf(MainApplication.getSavedProgress().getHighScore()));
+//        lastScore.setText( String.valueOf(MainApplication.getSavedProgress().getCurrentScore()));
+
         mediaPlayer.setOnEndOfMedia(new Runnable()
         {
             public void run()

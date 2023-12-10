@@ -2,8 +2,11 @@
 package project.stickhero.Backend;
 
 
+import java.io.Serializable;
 
-public class ProgressInfo {
+public class ProgressInfo implements Serializable {
+
+    private static final long serialVersionUID = 42L;
     private static ProgressInfo progress = null;
 
     private ProgressInfo() {
@@ -16,13 +19,8 @@ public class ProgressInfo {
         return progress;
     }
 
-
     private int currentScore;
-
-    
-    private int totalCherries;
-
-    
+    private int totalCherries = 50;
     private int highScore;
 
     public int getCurrentScore() {
