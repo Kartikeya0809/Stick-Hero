@@ -51,6 +51,7 @@ public class Gameplay {
     private AnchorPane labels;
     @FXML
     private ProgressInfo gameProgress;
+    TranslateTransition movement ;
 
     public Gameplay() {
         // Can be instantiated more than once
@@ -125,6 +126,7 @@ public class Gameplay {
 
         pillarShifts.add( source.startTransition(600) );
         pillarShifts.add( destination.startTransition(600) );
+        movement = stickHero.getSpriteTransition(450);
 
         gameProgress = MainApplication.getPi();
 
@@ -201,7 +203,7 @@ public class Gameplay {
             {
                 stickHero.fallIntoAbyss();
             }
-            TranslateTransition movement = stickHero.getSpriteTransition(450);
+            //TranslateTransition movement = stickHero.getSpriteTransition(450);
 //            System.out.println("stick has fallen");
 //            System.out.println("Stick.isShort(): " + currentStick.isShort());
 
@@ -296,6 +298,17 @@ public class Gameplay {
     private void update()
 
     {
+        if(currentStick.isFallen() && stickHero.isUpsideDown() && stickHero.getImage().getBoundsInParent().intersects(destination.getBase().getBoundsInParent()))
+        {
+            //System.out.println("image: "+stickHero.getImage().getBoundsInParent().getMaxX());
+            //System.out.println("pillar: " + destination.getBase().getBoundsInParent().getMinX());
+            movement.stop();
+            stickHero.fallIntoAbyss();
+            delay.setOnFinished(exiting->Exit());
+            delay.play();
+
+        }
+        
         if(currentStick.isFallen() && stickHero.isUpsideDown() && stickHero.getImage().getBoundsInParent().intersects(destination.getBase().getBoundsInParent()))
         {
             stickHero.fallIntoAbyss();
